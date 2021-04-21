@@ -10,28 +10,45 @@
     <a id="top"></a>
 <h1><a href="../Index.html">COPIE WEB SITE</a></h1>
 <br>
+<nav>
 <h3>코딩과 관련된 정보 모음집</h3>
     <ul>
-        <li><a href="#study site">Study Site</a></li>
-        <li><a href="#usefull site">Usefull Site</a></li>
+        <li><a href="#study site">Study Site</a></li> <br>
+        <li><a href="#usefull site">Usefull Site</a></li> <br>
         <li><a href="#html tag">HTML TAG</a></li>
+        <ol>
+           <h5><li><a href="#base">기본 틀</a></li> 
+            <li><a href="#list">단락/리스트</a></li>
+            <li><a href="#link">링크/삽입</a></li>
+            <li><a href="#table">표 작성</a></li>
+            <li><a href="#form">FORM</a></li>
+            <li><a href="#layout">구성요소 지정(레이아웃)</a></li>
+            <li><a href="#etc">잡다한것들</a></li></h5>
+        </ol>
     </ul>
+</nav>
 <br>
 <ul>
+    <section
     <a id="study site"></a>
     <li><h2>Study Site</h2></li>
+    <br>
     <ol>
-        <a href="https://opentutorials.org/course/1" target="_blank"><img src="../image/생활코딩.png" width="30%"></a>
+        <a href="https://opentutorials.org/course/1" target="_blank"><img src="../image/생활코딩.png" width="25%"></a>
         <li><h3>생활코딩</a></h3></li>
             <p>쉽고 편하게 코딩을 설명해주는 짱좋은 사이트</p>
-
+            <p><a href="https://opentutorials.org/module/1892/10950" target="_blank">추가 강의페이지</p>
+            <br>
+            <br>
             <a href="https://www.codecademy.com/" target="_blank"><img src="../image/코드카데미.jpg" width="40%"></a>
         <li><h3>코드카데미(Codecademy)</a></h3></li>
             <p>코딩을 직접 하며 실습 가능한 사이트.영어주의</p>
-
-            <a href="https://www.youtube.com/playlist?list=PLU9-uwewPMe19RQNzTdSdewSgw92UI1kl" target="_blank"><img src="../image/조코딩강좌.jpg" width="27%"></a>
+            <br>
+            <br>
+            <a href="https://www.youtube.com/playlist?list=PLU9-uwewPMe19RQNzTdSdewSgw92UI1kl" target="_blank"><img src="../image/조코딩강좌.jpg" width="25%"></a>
         <li><h3>조코딩 강좌</a></h3></li>
             <p>코딩을 누구나 접하게 도와줌. 자세하진 않으니 수업 후 추천</p>
+            <br>
     </ol>
     <br>
     <a id="usefull site"></a>
@@ -40,10 +57,14 @@
         <a href="https://github.com/" target="_blank"><img src="../image/github.png" width="40%"></a>
         <li><h3>GitHub</h3></li>
             <p>코딩인의 사이트. 근데 어케쓰는지 잘 모름</p>
+            <br>
+            <br>
 
         <a href="https://app.netlify.com/teams/dingpie/overview" target="_blank"><img src="../image/netlify.png" width="30%"></a>
         <li><h3>Netlify</a></h3></li>
             <p>서버 공유 가능한 사이트? 암튼 파일->링크 서버로 가능</p>
+            <br>
+            <br>
 
         <a href="https://www.xml-sitemaps.com/" target="_blank"><img src="../image/xmlsitemap.png" width="30%"></a>
         <li><h3>XML-Sitemap </h3></li>
@@ -60,51 +81,140 @@
          <p> *꺾쇠는 . 으로 대체</p>
          <P>**대부분 작성 순서 및 중요도 순서대로 작성</P>
          <br>
-         <ul>
-             <li><h4> .!DOCTYPE HTML / .HTML </h4></li>
-              <p> HTML의 원활한 구동을 위해 꼭! 맨 위에 적고 시작</p>
-             <li><h4> .head </h4></li>
-              <p> 페이지의 가장 중요한 정보를 나타내는 부분. </p>
-             <li><h4> .title </h4></li>
-              <p> 페이지의 이름(?)을 바꿔줌. 검색에서 우선정보가 됨 </p>
-             <li><h4> .meta charset="UTF-8" </h4></li>
-              <p> 페이지의 버전(형식). 이걸 안 적으면 한글이 안나올수도 있음. 현재는 대부분 UTF-8로 되니, 저대로 적자 </p>
-              
-              <br>
-             <li><h4> .h1~6 </h4></li>
-              <p> 제목을 표현하는 태그. 각 숫자별로 크기가 다르며, 일반 p태그에 이미지 조정보다 강력한 영향이 있으니 중요할 때 꼭 활용할것 </p>
-             <li><h4> .p </h4></li>
-              <p> 페이지의 단락을 결정하는 태그. 웬만하면 이걸로 쓴다 </p>
-             <li><h4> .br </h4></li>
-             <p> 엔터 </p>
-             <li><h4> .ol, ul </h4></li>
-             <p> 번호가 있는/없는 리스트 작성의 부모. </p>
-             <li><h4> .li </h4></li>
-             <p> ol, ul의 자식 두 태그안에 이것들을 적는 만큼 리스트작성이 된다. </p>
-            
-              <br>
-             <li><h4> .a href="" </h4></li>
-              <p> 하이퍼링크 기능. 폴더에서 이미지 업로드 시, 꼭 경로를 정확히 할 것!</p>
-              <p>ex) 폴더/이미지.확장자</p>
-              <p>target="_blank" 를 붙인다면, 새 창에서 열기 / </p>
-              <li><h4> .a id="" </h4></li>
-              <p> a id="여기" 와 a href="#여기" 를 통해 해당페이지 바로가기 가능</p>
-              <p>사실 뭐하는 놈인지 잘 모른다.</p>
-             <li><h4> .img src="이미지 링크 or 사이트 폴더 내에 사진명" </h4></li>
-              <p> 이미지 삽입. Width="" ->이미지 크기조정</p>
-              <p>alt="" -> 이미지의 대체텍스트. 설명문이 되어 여러모로 검색에 용이해진다</p>
-             <li><h4> .viedo src="이미지 링크 or 사이트 폴더 내에 사진명" </h4></li>
-              <p>동영상 삽입. 얘는 뒤에 /로 닫아줘야함. 꼭!</p>
-              <p> Width="", heihgt="" ->동영상 크기조정</p>
-              <p>controls -> 영상의 속도 등 조정가능한 옵션</p>
-              
-              <br>
-              <li><h4> .!--comment--> </h4></li>
-              <p>주석 이라는데...스텔스 기능인듯</p>
-             <li><h4> .strong, u, em </h4></li>
-              <p> 글의 굵기, 밑줄, 기울임 </p> 
+            <OL>
+                <a id="base"></a>
+                <li>기본 틀</li>
+            <ul>
+                <li><h4> .!DOCTYPE HTML / .HTML </h4></li>
+                <p> HTML의 원활한 구동을 위해 꼭! 맨 위에 적고 시작</p>
+                <li><h4> .head </h4></li>
+                <p> 페이지의 가장 중요한 정보를 나타내는 부분. </p>
+                <li><h4> .title </h4></li>
+                <p> 페이지의 이름(?)을 바꿔줌. 검색에서 우선정보가 됨 </p>
+                <li><h4> .meta charset="UTF-8" </h4></li>
+                <p> 페이지의 버전(형식). 이걸 안 적으면 한글이 안나올수도 있음. 현재는 대부분 UTF-8로 되니, 저대로 적자 </p>
             </ul>
-</ul>
+            <br>
+            <a id="list"></a>
+            <li>단락/리스트</li>
+            <ul>
+                
+                <li><h4> .h1~6 </h4></li>
+                <p> 제목을 표현하는 태그. 각 숫자별로 크기가 다르며, 일반 p태그에 이미지 조정보다 강력한 영향이 있으니 중요할 때 꼭 활용할것 </p>
+                <li><h4> .p </h4></li>
+                <p> 페이지의 단락을 결정하는 태그. 웬만하면 이걸로 쓴다 </p>
+                <li><h4> .br </h4></li>
+                <p> 엔터 </p>
+                <li><h4> .ol, ul </h4></li>
+                <p> 번호가 있는/없는 리스트 작성의 부모. </p>
+                <li><h4> .li </h4></li>
+                <p> ol, ul의 자식 두 태그안에 이것들을 적는 만큼 리스트작성이 된다. </p>
+            </ul>
+                <br>
+                <a id="link"></a>
+                <li>링크/삽입</li>
+                <ul>
+                <li><h4> .a href="" </h4></li>
+                    <p> 하이퍼링크 기능. 폴더에서 이미지 업로드 시, 꼭 경로를 정확히 할 것!</p>
+                    <p>ex) 폴더/이미지.확장자</p>
+                <p>target="_blank" 를 붙인다면, 새 창에서 열기 / </p>
+                <li><h4> .a id="" </h4></li>
+                    <p> a id="여기" 와 a href="#여기" 를 통해 해당페이지 바로가기 가능</p>
+                    <p>사실 뭐하는 놈인지 잘 모른다.</p>
+                <li><h4> .img src="이미지 링크 or 사이트 폴더 내에 사진명" </h4></li>
+                    <p> 이미지 삽입. Width="" ->이미지 크기조정</p>
+                    <p>alt="" -> 이미지의 대체텍스트. 설명문이 되어 여러모로 검색에 용이해진다</p>
+                <li><h4> .viedo src="이미지 링크 or 사이트 폴더 내에 영상명" </h4></li>
+                    <p>동영상 삽입. 얘는 뒤에 /로 닫아줘야함. 꼭!</p>
+                    <p> Width="", heihgt="" ->동영상 크기조정</p>
+                    <p>controls -> 영상의 속도 등 조정가능한 옵션</p>
+                <li><h4> .audio src="파일 링크 or 사이트 폴더 내에 파일명"  controls type="파일형식" /</h4></li>
+                    <p> 음악 삽입. + autoplay controls 오토플레이도 가능하다.</p>
+                <li><h4> object src="파일" / embed="파일" /</h4></li>
+                    <p> 음악이나 영상 / 움짤이나 링크 등 삽입. 언제쓸까?</p>   
+                </ul>  
+                <br>
+                <li><a id="table"></a> 표 작성</li>
+                <ul>
+                    <li><h4>table</h4></li>
+                        <p>표 전체를 감싸는 큰 틀</p>
+                    <li><h4>td</h4></li>
+                        <p>행의 가로 작성. colspan 으로 가로 병합</p>
+                    <li><h4>tr</h4></li>
+                        <p>열의 세로 작성. rowspan으로 세로 병합</p>
+                    <li><h4>.thead / .tbody / .tfoot</h4></li>
+                    <p>각 표의 맨 위, 몸통, 꼬리를 담당. 어디에 쓰여도 표 위치는 고정이다.</p>
+                </ul> 
+                <br>
+                <li><a id="form"></a> FORM</li>
+                <ul>
+                    <li><h4>.form action="보낼주소" method="get/post"</h4></li>
+                        <p>텍스트, 체크 등 입력 양식을 보내기 위한 틀. action을 통해 보낼 위치를 지정</p>
+                    <li><h4>.input type="text/password" name="지정정보" value="초기 텍스트값"</h4></li>
+                        <p>텍스트를 적는 기본적인 칸. name보낼 정보의 이름 지정, value로 작성 전 기본값 지정</p>
+                    <li><h4>.input type="submit" value="변경이름"</h4></li>
+                        <p>form 내에 작성한 정보를 제출을 위한 버튼. value값으로 버튼의 이름설정가능</p>
+                    <li><h4>.textarea/ cols="가로길이" rows="tpfhrlfdl"</h4></li>
+                        <p>내용을 적는 것 같은 큰 상자</p>
+                     <li><h4>.select name="이름지정"/</h4></li>
+                        <p>선택지의 시작. </p>
+                    <li><h4>.option value="보낼 정보값"</h4></li>
+                        <p>선택지 내부 내용들. value로 지정한 정보값이 지정되니, 웬만하면 영어로 할 것</p>
+                    <li><h4>input type="radio" name="이름,동일시 중복x" value="보내는값" checked-처음지정된것</h4></li>
+                        <p>동그란 체크박스. 각 라디오를 같은 name으로 지정시, 중복선택 X</p>
+                    <li><h4>input type="checkbox" name="이름,동일시 중복O" value="보내는값" checked-처음지정된것</h4></li>
+                        <p>네모난 체크박스. 각 체크박스를 같은 name으로 지정해도, 중복선택 O</p>
+                    <li><h4>label for="내용" / id="내용"</h4></li>
+                        <p>체크박스, 텍스트 등 같은 내용을 작성시 id로 지정해 둔 값을 레이블로 묶어, 지정범위 확대 사이트 정확성에 기여</p>
+                    <li><h4>input type="hide" name="이름" value="전송값"</h4></li>
+                        <p>유저에게 보이지 않지만, 정보전송이 필요한 부분에 사용</p>
+                    <li><h4>input type="file" / form action="" + method="post" enctype="multiple/form-date"</h4></li>
+                        <p>파일 전송용. 전송받는 서버에 대해 이해가 낮으니, 참고만 하자.</p>
+                    <li><h4>input type="number" id="지정값" name="이름" step="각 범위별 차이"</h4></li>
+                    <p>숫자만을 체크하는 타입. 위/아래로 조절이 가능하며, 검색 또한 가능하다.</p>
+                    <li><h4>input type="range" name="이름" id="지정값" stpe="항목별 눈금?" max="" min=""</h4></li>
+                    <p>범위 지정 막대. 좌/우로 움직여 항목의 숫자를 결정하며, 정확한 숫자는 보이지 않음. </p>
+                    <li><h4>데이터리스트</h4></li>
+                    <li><h4>1. input list="B" id="A" name="A"</h4></li>
+                    <li><h4>2. datalist id="B"<./option></h4></li>
+                    <li><h4>3. option value="지정할 이름, 이외 텍스트 없음."</h4></li>
+                    <p>검색이 가능한 셀렉트 리스트. 꼭 input list와 datalist가 같고, Id와 name이 같게 설정할것</p>
+                    <p>옵션에서는 다른 텍스트 지정이나 박스 없이, 옵션값에 벨류 넣어서 마무리., 끝에 /값은 꼭 넣어주자</p>
+                    </ul>
+                    <br>
+                    <li><a id="layout"></a>> 구성요소 지정 (레이아웃)</li>
+                    <ul>
+                        <li><h4> div id="지정값" +그외 css요소</h4></li>
+                        <p>내부 구성요소와 레이아웃을 지정. css에서 레이아웃 사이즈를 배우자.</p>
+                        <li><h4>header</h4></li>
+                        <p>말 그대로 제목부분</p>
+                        <li><h4>nav</h4></li>
+                        <p>목차부분을 지정하는 섹션태그</p>
+                        <li><h4>main</h4></li>
+                        <p>말 그대로 메인. 상위 개념은 아니기에, 다른 article 등 구성요소 태그의 상 하위에 다 쓰일수 있다.</p>
+                        <li><h4>footer</h4></li>
+                        <p>제일 아래. 주석이나 연락처 등 정보 기입란</p>
+                        <li><h4>section id="?"</h4></li>
+                        <p>파트를 구분짓는 대표적 레이아웃. id로 활용가능한듯</p>
+                        <li><h4>article</h4></li>
+                        <p>기사나 글의 내용 부분.</p>
+                        <li><h4>aside</h4></li>
+                        <p>본문에 관련되지만 맥락에는 관련되지 않는 부가요소들.</p>
+                        <li><h4>figure/figcaption</h4></li>
+                        <p>이미지 삽입부분 / 삽입부분의 설명부분. (상, 하위개념)</p>
+                    </ul>
+                    </ul>
+                    <br>
+                <li><a id="etc"></a> 잡다한것들</li>
+                <ul>
+                <li><h4> .!--comment--> </h4></li>
+                <p>주석 이라는데...스텔스 기능인듯</p>
+                <li><h4> .strong, u, em </h4></li>
+                <p> 글의 굵기, 밑줄, 기울임 </p> 
+                </ul>
+                
+            </OL>
+            </ul>
 <a href="#top">맨 위로</a>
 </body>
 

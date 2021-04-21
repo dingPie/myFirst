@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>CoPie: Calender&Memo</title>
+<meta charset="utf-8">
+</head>
+
+<body>
+
+<h1><a href="../Index.html">COPIE WEB SITE</a></h1>
+<br>
+<audio src="../file/엘리니아 사이트용 브금.wav"controls autoplay loop></audio>
+
+<h2>으어 빡세네오</h2>
+
+<!--폼 액션주소 html 형식으로 되는지 체크할것-->
+<form action="https://localhost/login.php/갈 주소 이런식으로" method="POST">
+
+<!--ID는 수정완료. 비밀번호 등 라벨링 새로할것. id 형식을 통한 라벨링이 좋다.-->
+
+    <label for="id" >ID:</label>
+        <input type="text" required pattern="[a-z0-9]{4,20}" id="id" name="id" value="지우세요">
+    <p>4자 이상,20자 미만. 소문자/숫자로만 가능</p>
+    </label>
+    <p><label for="pw">PW:</label>
+        <input type="password" require pattern="{8,20}" id="pw" name="pw"></p>
+        <p>8자 이상,20자 미만 </p>
+        <!--근데 어떤건 안되는거랑, 특수문자는 어케지정하지-->
+    
+    
+<br>
+    <label for="guest">
+        <input type="radio" name="guest"  id="guest" value="yes" checked>회원
+    </label>
+    <label>
+        <input type="radio" name="guest" value="no">비회원
+    </label>
+    <br>
+   <!--여기 잘 체크할것. 라벨링 버전 1, 다르게 붙였음.-->
+
+        <input type="checkbox"  id="v1" name="version" value="v1">
+        <label for="v1">버전1</label>
+
+    
+        <input type="checkbox" name="version" id="v2" value="v2" checked>
+        <label for="v2">버전2</label>
+    <br>
+    <p>기간선택</p>
+    <select name="month">
+        <option>선택</option>
+        <option>1개월</option>
+        <option>3개월</option>
+        <option>6개월</option>
+    </select>
+<br>
+<p> <input type="submit"></p>
+<br>
+    <label for="memo">memo</label><br>
+    <textarea id="memo" cols="30" rows="5">여기 기본값 입력</textarea>
+</form> 
+<br>
+<form action="https://localhots.file.php/"여기도 테스트 method="post" enctype="multiple/form-date">
+    <p>연습삼아 추가</p>
+    <input type="file" name="test">
+<br>
+<br>
+<label for=meet>what's your favorite meet? </label>
+    <input list="meets" name="meet" id="meet">
+        <datalist id="meets">
+            <option value="pork"></option>
+            <option value="beef"></option>
+            <option value="chicken"></option>
+        </datalist>
+
+        <p>4.19 추가</p>
+        <label for="chicken">How many you want eats chicken on week?</label><br>
+    <input type="number" id="chicken" name="chicken" step="1" min="0" max="7"><br>
+    <label for="level">How's your coding level ?</label><br>
+    Low<input type="range" name="level" id="level" min="1" max="10" step="1">High
+   
+   <br> <input type="submit">
+</form>
+<br>
+<div style="border:1px solid black">
+    <div style="border:1px solid black">1</div>
+    <div>2</div>
+</div>
+
+</body>
+
+</html>
