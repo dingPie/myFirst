@@ -1,0 +1,201 @@
+body {
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+a {
+    text-decoration: none;
+    color:black;
+}
+.blank {
+    width: auto;
+    height: 3.5rem;
+}
+li {
+    list-style: none;
+}
+
+.test {
+    background-color: antiquewhite;
+    height: 1000px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+/* header, nav  */
+
+header {
+    background-color: white;
+    position: fixed;
+    display: flex;
+    width: 100%;
+    z-index: 10;
+}
+.nav-bar {
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: space-between;
+    width: 1080px;
+    margin: 0 auto;
+    padding: 0px 12px;
+}
+.nav-logo {
+    display: flex;
+}
+.nav-logo a {
+    font-family: 'Jua', sans-serif;
+    line-height: 80px;
+    padding-left: 20px;
+    font-size: 28px;
+}
+.nav-manu {
+    display: flex;
+    font-size: 24px;
+    padding-left: 0;
+    margin: 0;
+}
+.nav-manu li {
+    box-sizing: border-box;
+    background-color: white;
+    height: 80px;
+    width: 8.5rem;
+    text-align: center;
+    line-height: 80px;
+    margin: 0;
+    font-family: 'Jua', sans-serif;
+}
+.nav-manu li a {
+    display: block;
+}
+.nav-manu li:hover {
+    border-bottom: 5px blue solid;
+}
+.nav-btn {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    display: none;
+}
+
+@media(max-width:800px) {
+    /* .nav-bar {
+        background-color: antiquewhite;
+        display: flex;
+        justify-content:flex-start;
+        width: 1080px;
+        margin: 0 auto;
+        padding: 0px 12px;
+    } */
+    .nav-manu {
+        margin-left:50px;
+        display: none;
+    }
+    .nav-manu:hover {
+        display: block;
+        margin-top: 50px;
+    }
+    .nav-btn {
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: 40px;
+    }
+    .nav-btn:hover + .nav-manu {
+        margin-top: 50px;
+        display: block;
+    }
+    .nav-logo {
+        align-items: flex-start;
+    }
+    
+    /* 나중에 꼭 버튼형으로 만들자 */
+}
+/* banner */
+
+#banner img {
+    margin-top: 85px;
+    height: 550px;
+    width: 100%;
+}
+.banner-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 1080px;
+    height: 550px;
+    top: 85px;
+    margin: 0 auto;
+    border: 1px solid white;
+}
+.banner-text {
+    position: absolute;
+    background-color: blue;
+    top: 200px;
+    left: 100px;
+    font-family:
+}
+.banner-btn {
+    position: absolute;
+    bottom: 100px;
+    left: 100px;
+    width: 10rem;
+    height: 3.5rem;
+    background-color: blue;
+    color: white;
+    border-radius: 1.75rem;
+}
+
+/* value */
+
+#value {
+    width: 1080px;
+    margin: 0 auto;
+}
+#value h1 {
+    margin-left: 10%;
+    font-size: 2rem;
+}
+.value-li {
+    display: flex;
+    justify-content: space-around;
+    margin: auto; 
+    padding: 42px;
+    border-bottom: 1px blue solid;
+}
+.value-li li {
+    text-align: center;
+    line-height: 5rem;
+    width: 15rem;
+    height: 5rem;
+    background-color:blue;
+    color: black;
+    font-size: 1.5rem;
+    border-radius: 2.5rem;
+}
+
+/* service */
+
+#service {
+    width: 1080px;
+    margin: 4rem auto 0;
+}
+#service h1 {
+    font-size: 1.2rem;
+    margin: 32px auto;
+}
+.ser-door h2, .ser-auto h2, .ser-handle h2 {
+    font-size: 2rem;
+    padding: 0 0 12px 8px;
+    margin: 18px auto;
+    border-bottom: 2px blue solid;
+}
+.ser-door-box, .ser-auto-box, .ser-handle-box {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 4rem;
+}
+.ser-door h4, .ser-auto h4, .ser-handle h4 {
+    margin: 0;
+    padding: 6px 18px;
+    font-size: 1.5rem;
+}
