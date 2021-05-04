@@ -14,12 +14,12 @@ li {
     list-style: none;
 }
 
-.test {
+/* .test {
     background-color: antiquewhite;
     height: 1000px;
     width: 300px;
     margin: 0 auto;
-}
+} */
 
 /* header, nav  */
 
@@ -43,9 +43,9 @@ header {
 }
 .nav-logo a {
     font-family: 'Jua', sans-serif;
-    line-height: 80px;
+    line-height: 85px;
     padding-left: 20px;
-    font-size: 28px;
+    font-size: 1.8rem;
 }
 .nav-manu {
     display: flex;
@@ -59,7 +59,7 @@ header {
     height: 80px;
     width: 8.5rem;
     text-align: center;
-    line-height: 80px;
+    line-height: 85px;
     margin: 0;
     font-family: 'Jua', sans-serif;
 }
@@ -67,24 +67,17 @@ header {
     display: block;
 }
 .nav-manu li:hover {
-    border-bottom: 5px blue solid;
+    border-bottom: 3px #6488BC solid;
 }
 .nav-btn {
     position: absolute;
     top: 25px;
     right: 40px;
     display: none;
+    font-size: 24px;
 }
 
 @media(max-width:800px) {
-    /* .nav-bar {
-        background-color: antiquewhite;
-        display: flex;
-        justify-content:flex-start;
-        width: 1080px;
-        margin: 0 auto;
-        padding: 0px 12px;
-    } */
     .nav-manu {
         margin-left:50px;
         display: none;
@@ -101,15 +94,41 @@ header {
     }
     .nav-btn:hover + .nav-manu {
         margin-top: 50px;
-        display: block;
+        display: flex;
+        flex-direction: column;
     }
     .nav-logo {
         align-items: flex-start;
+    }
+
+    @media(max-width:480px) {
+        header {
+            width: 480px;
+        }
+        .nav-bar {
+            width: 100%;
+        }
+        .nav-logo a {
+            font-size: 1rem;
+            padding-left: 0;
+            height: 2rem;
+            line-height: 6.8rem;
+            
+        }
     }
     
     /* 나중에 꼭 버튼형으로 만들자 */
 }
 /* banner */
+
+#banner {
+    background: url('/img/entrance-white-back.jpg');
+    background-size: cover;
+    background-position: center;
+    /* margin-top: 85px; */
+    height: 600px;
+    width: 100%;
+}
 
 #banner img {
     margin-top: 85px;
@@ -124,26 +143,46 @@ header {
     height: 550px;
     top: 85px;
     margin: 0 auto;
-    border: 1px solid white;
+    /* border: 1px solid white; */
 }
 .banner-text {
     position: absolute;
-    background-color: blue;
-    top: 200px;
-    left: 100px;
-    font-family:
+    width: 20rem;
+    top: 25%;
+    left: 22%;
+     /* border: blue 1px solid; */
 }
 .banner-btn {
     position: absolute;
-    bottom: 100px;
-    left: 100px;
+    bottom: 120px;
+    left: 20%;
     width: 10rem;
     height: 3.5rem;
-    background-color: blue;
+    background-color: #6488bc;
+    border: white;
     color: white;
     border-radius: 1.75rem;
 }
 
+@media(max-width:480px) {
+    #banner {
+        height: 480px;
+    }
+    .banner-box {
+        width: auto;
+        height: 480px;
+    }
+    .banner-text {
+        text-align: center;
+        position: absolute;
+        width: 20rem;
+        top: 13vh;
+        left: 20vw;
+    }
+    .banner-btn {
+        left: 35vw;
+    }
+}
 /* value */
 
 #value {
@@ -157,45 +196,134 @@ header {
 .value-li {
     display: flex;
     justify-content: space-around;
-    margin: auto; 
-    padding: 42px;
-    border-bottom: 1px blue solid;
+    margin: 0; 
+    padding: 24px 36px 0;
+    /* border-bottom: 3px #6488bc solid; */
 }
 .value-li li {
     text-align: center;
     line-height: 5rem;
-    width: 15rem;
-    height: 5rem;
-    background-color:blue;
-    color: black;
+    width: 10rem;
+    height: 10rem;
+    /* border: 2px #7ba5e6 solid; */
     font-size: 1.5rem;
-    border-radius: 2.5rem;
+    border-radius: 6.5rem;
+}
+.value-li li i {
+    display: block;
+    font-size: 40px;
+    font-size: 3.5rem;
+}
+
+@media(max-width:480px) {
+    #value {
+        width: auto;
+    }
+    #value h1 {
+        text-align: center;
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    .value-li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .value-li li {
+        font-size: 1.2rem;
+        height: 8rem;
+    }
+    .value-li li i {
+        font-size: 3rem;
+    }
 }
 
 /* service */
 
 #service {
     width: 1080px;
-    margin: 4rem auto 0;
+    margin: 0 auto 0;
 }
 #service h1 {
+    padding: 100px 0 24px;
+    height: 1.2rem;
+    line-height: 1.2rem;
     font-size: 1.2rem;
-    margin: 32px auto;
+    margin: 0 auto;
+    border-top: #7aa4e5 solid 2px;
 }
 .ser-door h2, .ser-auto h2, .ser-handle h2 {
     font-size: 2rem;
     padding: 0 0 12px 8px;
     margin: 18px auto;
-    border-bottom: 2px blue solid;
+    border-bottom: 2px #6488bc solid;
 }
 .ser-door-box, .ser-auto-box, .ser-handle-box {
     display: flex;
     width: 100%;
     height: 100%;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
-.ser-door h4, .ser-auto h4, .ser-handle h4 {
+#service h4 {
+    display: inline-block;
+    width: 540px;
+    padding: 8px 18px;
     margin: 0;
-    padding: 6px 18px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+}
+.ser-etc {
+    width: 1080px;
+    padding: 0 0 20px 8px;
+    margin: 36px auto;
+}
+
+@media(max-width:480px) {
+    #service {
+        width: 100%;
+    }
+    #service h1 {
+        /* text-align: center; */
+        margin-left: 10%;
+    }
+    .ser-door h2, .ser-auto h2, .ser-handle h2 {
+        font-size: 1.5rem;
+        padding: 0 0 12px 18px;
+        margin: 18px 24px;
+        border-bottom: 2px #6488bc solid;
+    }
+    .ser-door-box, .ser-auto-box, .ser-handle-box {
+        flex-direction: column;
+    }
+    #service img {
+        margin: 0 auto;
+        width: 420px;
+        height: 280px;
+    }
+    #service h4 {
+        width: 420px;
+        margin: 0 auto;
+    }
+}
+
+/* footer */
+
+footer {
+    background: #335b8c;
+    width: 100%;
+    margin: 0 auto;
+}
+#foot {
+    width: 1080px;
+    height: 100px;
+    padding: 18px 0 24px;
+    margin: 0 auto;
+}
+@media(max-width:480px) {
+    #foot {
+        width: 480px;
+        height: 70px;
+    }
+    .foot-logo, .foot-info {
+        margin-left: 5%;
+    }
 }
