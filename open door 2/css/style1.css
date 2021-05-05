@@ -14,13 +14,6 @@ li {
     list-style: none;
 }
 
-/* .test {
-    background-color: antiquewhite;
-    height: 1000px;
-    width: 300px;
-    margin: 0 auto;
-} */
-
 /* header, nav  */
 
 header {
@@ -31,7 +24,6 @@ header {
     z-index: 10;
 }
 .nav-bar {
-    /* background-color: antiquewhite; */
     display: flex;
     justify-content: space-between;
     width: 1080px;
@@ -49,7 +41,7 @@ header {
 }
 .nav-manu {
     display: flex;
-    font-size: 24px;
+    font-size: 1.5rem;
     padding-left: 0;
     margin: 0;
 }
@@ -63,11 +55,15 @@ header {
     margin: 0;
     font-family: 'Jua', sans-serif;
 }
+/* .nav-manu li:hover {
+    border-bottom: 3px #6488BC solid; 
+} */
 .nav-manu li a {
     display: block;
+    transition: color 0.5s;
 }
-.nav-manu li:hover {
-    border-bottom: 3px #6488BC solid;
+.nav-manu li a:hover, .nav-manu li a:active {
+    color: #6488BC;
 }
 .nav-btn {
     position: absolute;
@@ -76,11 +72,12 @@ header {
     display: none;
     font-size: 24px;
 }
-
+.mobile-title {
+    display: none;
+}
 @media(max-width:800px) {
     .nav-manu {
-        margin-left:50px;
-        display: none;
+        display: none;  
     }
     .nav-manu:hover {
         display: block;
@@ -102,18 +99,54 @@ header {
     }
 
     @media(max-width:480px) {
+        body {
+            width: 480px;
+        }
         header {
+            background-color: white;
+            position: fixed;
+            display: flex;
             width: 480px;
         }
         .nav-bar {
+            display: flex;
             width: 100%;
+            padding: 0;
         }
         .nav-logo a {
+            display: none;
             font-size: 1rem;
             padding-left: 0;
             height: 2rem;
             line-height: 6.8rem;
-            
+        }
+        .nav-btn {
+            display: block;
+            position: absolute;
+            top: 30px;
+            right: 40px;
+        }
+        .nav-manu:hover {
+            display: flex;
+            flex-direction: column;
+            width: 64%;
+        }
+        .nav-btn:hover + .nav-manu {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            width: 64%;
+        }
+        .mobile-title {
+            display: block;
+            position: absolute;
+            top: 25px;
+            width: 100px;
+            height: 30px;
+            right: 190px;
+            text-align: center;
+            font-family: 'Jua', sans-serif;
+            font-size: 1.25rem;
         }
     }
     
@@ -125,7 +158,6 @@ header {
     background: url('/img/entrance-white-back.jpg');
     background-size: cover;
     background-position: center;
-    /* margin-top: 85px; */
     height: 600px;
     width: 100%;
 }
@@ -143,14 +175,12 @@ header {
     height: 550px;
     top: 85px;
     margin: 0 auto;
-    /* border: 1px solid white; */
 }
 .banner-text {
     position: absolute;
     width: 20rem;
     top: 25%;
     left: 22%;
-     /* border: blue 1px solid; */
 }
 .banner-btn {
     position: absolute;
@@ -159,11 +189,22 @@ header {
     width: 10rem;
     height: 3.5rem;
     background-color: #6488bc;
-    border: white;
     color: white;
     border-radius: 1.75rem;
+    transition: background-color 0.4s;
 }
-
+.banner-btn:active, .banner-btn:hover {
+    background-color: #add5ff;
+}
+.banner-btn a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 3.5rem;
+    text-align: center;
+    font-size: 1.2rem;
+    color: white;
+}
 @media(max-width:480px) {
     #banner {
         height: 480px;
@@ -198,7 +239,6 @@ header {
     justify-content: space-around;
     margin: 0; 
     padding: 24px 36px 0;
-    /* border-bottom: 3px #6488bc solid; */
 }
 .value-li li {
     text-align: center;
@@ -282,13 +322,13 @@ header {
         width: 100%;
     }
     #service h1 {
-        /* text-align: center; */
         margin-left: 10%;
+        margin-right: 10%;
     }
     .ser-door h2, .ser-auto h2, .ser-handle h2 {
         font-size: 1.5rem;
         padding: 0 0 12px 18px;
-        margin: 18px 24px;
+        margin: 18px 48px;
         border-bottom: 2px #6488bc solid;
     }
     .ser-door-box, .ser-auto-box, .ser-handle-box {
@@ -296,11 +336,11 @@ header {
     }
     #service img {
         margin: 0 auto;
-        width: 420px;
-        height: 280px;
+        width: 360px;
+        height: 240px;
     }
     #service h4 {
-        width: 420px;
+        width: 360px;
         margin: 0 auto;
     }
 }
@@ -325,5 +365,27 @@ footer {
     }
     .foot-logo, .foot-info {
         margin-left: 5%;
+    }
+}
+
+#go-top {
+    display: none;
+    float: right;
+    position: sticky;
+    bottom: 130px;
+    text-align: center;
+    margin-right: 20px;
+    font-size: 1.1rem;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    border: #6488bc 2px solid;
+    border-radius: 35px;
+    background: #6488bc;
+    color: white;
+}
+@media(max-width:480px) {
+    #go-top {
+    display: inline-block;
     }
 }
