@@ -1,0 +1,359 @@
+body {
+    margin: 0 auto;
+    max-width: 1280px;
+    min-width: 440px;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+li {
+    list-style: none;
+}
+i {
+    color: gray;
+}
+h1 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+main {
+    padding: 80px 24px 0 0;
+    /* margin-top: 56px; */
+    margin-left: 24px;
+    background: #f9f9f9;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 56px;
+    position: fixed;
+    background: white;
+    width: 100%;
+    z-index: 10;
+}
+.logo {
+    display: flex;
+    align-items: center;
+}
+.logo-more i {
+    font-size: 18px;
+    padding: 8px 24px 8px 8px;
+}
+.logo-title {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+.logo-title i {
+    padding: 2px;
+    color: red;
+    margin-top: 2px;
+    font-size: 24px;
+}
+.pietube {
+    font family: 'Roboto', Arial, sans-serif;
+}
+.head-search {
+    display: flex;
+    align-items: center;
+}
+.voice i {
+    text-align: center;
+    padding: 8px;
+}
+.head-icons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 225px;
+    font-size: 18px;
+    padding: 0;
+    margin-right: 16px;
+}
+.head-icons li:nth-child(1), .head-icons li:nth-child(2) {
+    display: none;
+}
+@media(max-width:590px) {
+    header {
+        padding: 0 8px;
+    }
+    .head-icons li:nth-child(1), .head-icons li:nth-child(2) {
+        display: inline-block;
+    }
+    .head-search {
+        justify-items: flex-end;
+    }
+    .head-search {
+        display: none;
+    }
+    .logo-more i {
+        padding: 8px;
+        font-size: 20px;
+    }
+}
+
+/* Player */
+.player-test {
+    background-color: lightgray;
+    width: 100%;
+    max-height: 720px;
+    height: 360px;
+}
+
+/* Infomation */
+.info {
+    padding: 20px 0 8px;
+    border-bottom: solid 1px lightgray;
+}
+.view-info {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+}
+.view {
+    align-self: center;
+    font-size: 14px;
+}
+.info-icons {
+    display: flex;
+    justify-content: space-between;
+    width: 345px;
+    height: 40px;
+    padding: 0 6px 0 0;
+}
+
+@media(max-width:590px) {
+    .date {
+        display: none;
+    }
+}
+
+/* Channel Infomation */
+
+.channel {
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid lightgray;
+}
+.chan-info {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    margin-bottom: 12px;
+}
+.chan-name img {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+}
+.chan-name a {
+    display: block;
+    width: 63px;
+}
+.chan-name {
+    display: flex;
+    align-items: center;
+}
+.name-num {
+    display: flex;
+    flex-direction: column;
+}
+.name-num a {
+    font-size: 14px;
+    margin: 0;
+}
+.name-num p {
+    font-size: 12px;
+    margin: 0;
+}
+.subs a {
+    display: block;
+    width: 72px;
+    height: 39px;
+    text-align: center;
+    line-height: 39px;
+    font-size: 14px;
+    color: white;
+    background-color: #c00;
+    border-radius: 2px;
+  
+}
+.video-expl {
+    margin-left: 4rem;
+    max-height: 4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.expl-more {
+    margin: 8px 0 0 64px;
+    height: 20px;
+    font-size: 13px;
+}
+
+/* Recommendation */
+.recomm-list{
+    width: 100%;
+    height: 500px;
+    margin: 0;
+}
+.recomm-box {
+    display: flex;
+    margin: 0 0 6px;
+}
+.recomm-thumb {
+    background: aquamarine;
+    width: 168px;
+    height: 94px;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+.recomm-info h2 {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0 0 4px;
+    max-height: 32px;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+.more-dot i {
+    visibility: hidden;
+    width: 22px;
+    height: 24px;
+    text-align: center;
+}
+.recomm-box:hover .more-dot i {
+    visibility: visible;
+}
+.recomm-name, .recomm-info .view-num, .upload-date {
+    font-size: 12px;
+}
+.recomm-more a {
+    box-sizing: border-box;
+    display: block;
+    color: #065fd4;
+    font-size: 14px;
+    padding: 9px 0;
+    border: 1px solid #065fd4;
+    text-align: center;
+    width: 100%;
+}
+@media (min-width:1024px) {
+    .comment {
+        display: inline-block;
+        flex-direction: row;
+    }
+}
+/* Comment */
+.comment-user {
+    margin: 24px 0 32px 0;
+}
+.comment-num {
+    display: flex;
+    margin-bottom: 24px;
+}
+.comment-title {
+    display: inline-block;
+    margin-right: 30px;
+}
+.comment-add {
+    display: flex;
+}
+.comment-add img {
+    width: 40px;
+    height: 40px;
+    margin-right: 13px;
+}
+.comment-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.comment-text {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    height: 20px;
+  
+    padding-bottom: 4px;
+    background: #f9f9f9;;
+}
+.comment-btn {
+    display: none;
+}
+.comment-cancel {
+    margin-right: 12px;
+    width:72px;
+    height: 39px;
+    text-align: center;
+    line-height: 39px;
+    font-size: 14px;
+}
+.comment-yes {
+    width:72px;
+    height: 39px;
+    text-align: center;
+    line-height: 39px;
+    font-size: 14px;
+    background: lightgray;
+    border-radius: 2px;
+}
+.comment-text:active + .comment-btn, .comment-text:hover + .comment-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 800px;
+    margin: 0;
+    /* background-color: lightgray; */
+}
+.co-list-box {
+    display: flex;
+}
+.co-list-box img {
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+}
+.co-list-box .name {
+    font-size: 13px;
+}
+.co-list-main {
+    margin: 0 16px 16px 0;
+    font-size: 14px;
+    max-height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.co-list-icons {
+    display: flex;
+    padding: 0;
+    line-height: 32px;
+}
+.co-list-icons i {
+    font-size: 16px;
+    padding: 8px;
+}
+.list-icons-num {
+    font-size: 12px;
+    width: 12px;
+}
+.list-icons-haert {
+    width: 36px;
+    font-size: 12px;
+}
+.list-icons-re {
+    font-size: 13px;
+    padding: 8px 16px;
+    line-height: 16px;
+}
+.co-list-box:hover .more-dot i {
+    visibility: visible;
+}
