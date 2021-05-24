@@ -1,0 +1,112 @@
+:root {
+  --main-color: #a0e7f2;
+  --right-color: #ecf9ff;
+  --dark-color: #3ebcbb;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+text-decoration {
+   
+}
+
+/* header */
+.top-box {
+  width: 480px;
+  margin: 0 auto;
+  border-radius: 8px;
+  background: var(--right-color);
+}
+header {
+  padding: 18px 0 0;
+  margin: 0 auto;
+  max-width: 480px;
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+  /* background: #ecf9ff; */
+  border-radius: 8px;
+  
+}.top {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 24px;
+}
+.top h2 {
+  font-size: 1rem;
+}
+header h1 {
+  margin-top: 18px;
+  padding: 8px 0;
+  font-size: 2.25rem;
+  /* background: var(--main-color); */
+  border-radius: 8px;
+}
+
+/* add-box */
+.add-box {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  max-width: 480px;
+  padding: 42px 0;
+  background: #ecf9ff;
+  /* border-radius: 8px; */
+  
+}
+.add-txt {
+  width: 360px;
+  height: 32px;
+  border: none;
+}
+.txt-btn {
+  display: inline-block;
+  width: 64px;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  background: var(--main-color);
+  transition: 0.3s;
+}
+.txt-btn:hover {
+  background: var(--dark-color);
+}
+
+/* list-box */
+.list-box {
+  margin: 0 auto;
+  max-width: 480px;
+  height: 520px;
+  padding-left: 0;
+  border-radius: 6px;
+  background: #f4fffb;
+}
+
+li {
+  list-style: none;
+  padding-left: 0;
+  margin: 12px 12px 0px;
+  border-bottom: 1px lightgray solid;
+  height: 32px;
+  font-size: 1.125rem;
+  transition: 0.3s;
+  /* border-radius: 6px; */
+}
+li:hover {
+  background: var(--main-color);
+  transform: rotate(1.5deg);
+}
+
+.x-btn {
+  width: 40px;
+  height: 100%;
+  text-align: center;
+  line-height: 24px;
+  float: right;
+  transition: 0.3s;
+}
+.x-btn:hover {
+  background: #ecf9ff;
+}
