@@ -1,0 +1,68 @@
+:root {
+    --main-color: #2caa48;
+}
+
+source {
+    width: 260px;
+    height: 40px;
+    margin: 0 auto;
+}
+body {
+    color: white;
+    width: 480px;
+    text-align: center;
+}
+.box {
+    display: flex;
+    flex-direction: column;
+    background-color: #ad0d15;
+    height: 540px;
+    border-radius: 12px;
+    box-shadow: 8px 12px #760000;
+}
+h1 {
+    margin-top: 36px;
+    background: var(--main-color);
+    color: white;
+    text-shadow: 4px 4px 4px brown;
+}
+.btn {
+    background-color: var(--main-color);
+    color: white;
+    font-size: 18px;
+    font-weight: bolder;
+    width: 180px;
+    height: 48px;
+    margin: 0 auto;
+    border-radius: 18px;
+}
+h2 {
+    color: white;
+    text-shadow: 2px 2px 2px var(--main-color);
+}
+.ball-box {
+    margin: 0 auto;
+    width: 460px;
+    height: 210px;
+    background: white;
+    line-height: 210px;
+    border-radius: 8px;
+}
+.ball {
+    display: inline-block;
+    border-radius: 25px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 4px;
+    box-shadow: 2px 2px 6px darkslategray;
+}
+.plus {
+    visibility: hidden;
+    font-size: 36px;
+    color: black;
+    font-weight: bolder;
+}
