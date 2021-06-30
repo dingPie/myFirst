@@ -1,0 +1,84 @@
+:root {
+    --body-color: #363834;
+}
+
+* {
+    box-sizing: content-box;
+}
+
+.machine-top {
+    width: 480px;
+    height: auto;
+    background: #166ad3;
+    border: 10px inset lightgray;
+    border-radius: 2px;
+}
+
+h1 {
+    margin: 4px 0px 0px 48px;
+    font-weight: bolder;
+    color: yellow;
+    text-shadow: 4px 4px black;
+    font-size: 40px;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    border-radius: 125px;
+    border: #189e4c 14px dashed;
+    margin: 24px 24px 24px 48px;
+}
+.alert {
+    position: absolute;
+    top: 72px;
+    left: 300px;
+    color: yellow;
+    font-size: 16px; 
+    text-shadow: 1px 1px 1px skyblue;
+    font-family: 'Noto Serif KR', serif;
+}
+.silver-box {
+    padding-top: 12px;
+    position: absolute;
+    top: 130px;
+    left: 350px;
+    width: 120px;
+    height: 160px;
+    font-family: 'Noto Serif KR', serif;
+    background: lightgray;
+    border-radius: 2px;
+}
+.btn-box {
+    background: var(--body-color);
+    text-align: center;
+}
+.btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 27.5px;
+    padding: 0;
+    margin: 12px;
+    border: 3px solid lightblue;
+}
+.btn:active {
+    filter: brightness(0.8)
+}
+.machine-botton {
+    width: 480px;
+    height: 360px;
+    border: 10px inset lightgray;
+    border-top: none;
+    border-radius: 2px;
+    background: var(--body-color);
+}
+.coin-box {
+    position: absolute;
+    padding:  6px;
+    left: 310px;
+    top: 480px;
+    font-size: 18px;
+    color: var(--body-colors);
+    background: white;
+    font-family: 'Noto Serif KR', serif;
+}
