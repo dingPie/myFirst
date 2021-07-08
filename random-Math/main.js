@@ -58,7 +58,6 @@ function pickProblem () {
 }
 pickProblem () //처음 1회 실행
 
-
 // 이벤트리스너
 $submit.addEventListener('click', checkanswer)
 $answer.addEventListener('keydown', (e) => { //얘는 밸류에서 엔터 눌러야 가능
@@ -71,17 +70,15 @@ $answer.addEventListener('keydown', (e) => { //얘는 밸류에서 엔터 눌러
 function checkanswer () {
   if ($remain.textContent > 0) { // 남은 문제가 0 이상이여야 함수 실행
   $remain.textContent-- //남은문제 1 줄여주고
-  pickProblem () //문제뽑기함수 다시실행
-
-  } else { //만약 남은 문제가 0이라면
+  } 
+  else { //만약 남은 문제가 0이라면
    $submit.removeEventListener('click', checkanswer)
    $answer.removeEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       checkanswer() //이거 엔터시 알럿창만 계속뜨는데 왜 버그일까
-    }
-  }) 
+    }}) 
   alert(`종료! 총 점수는 ${$right.textContent*5} 점입니다!`) // 결과안내
-   return //리턴함수로 끝내줘야 아래 함수가 실행 안됨
+  return //리턴함수로 끝내줘야 아래 함수가 실행 안됨
   }
   if ($answer.value == answer) {  //정답시
     addListRigth () // 정답시 리스트 추가함수 실행
@@ -91,18 +88,18 @@ function checkanswer () {
     $answer.value = ''
     addListWrong () // 오답시 리스트 추가함수 실행
   }
+  pickProblem () //문제뽑기함수 다시실행, 정답 이후에 실행해야 제대로 실행됨
 }
 
 
 //리스트 추가함수
-function addListWrong () {
+function addListWrong () { //틀렸을 때
   const _li = document.createElement('li')
   _li.append(`X ${$problems.textContent}`)
   _li.style.color = 'red'; //빨간색
   $problemList.appendChild(_li)
 }
-
-function addListRigth () {
+function addListRigth () { //맞았을 때
   const _li = document.createElement('li')
   _li.append(`O ${$problems.textContent}`)
   _li.style.color = 'green'; //초록색 이것만 다르다
