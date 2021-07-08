@@ -1,26 +1,26 @@
 * {
   box-sizing: content-box;
 }
-#top-box {
+.top-box {
   display: flex;
 }
-#charactor-box {
+.charactor-box {
   width: 200px;
   height: 300px;
   border: solid black 1px;
 }
-#status-box {
+.status-box {
   border: black solid 1px;
 }
-#equipment-box {
+.equipment-box {
   border: black solid 1px;
 }
-#item-box {
+.item-box {
   width: 300px;
   height: 100px;
   border: solid black 1px;
 }
-#text-box {
+.text-box {
   width: 300px;
   height: 100px;
   border: solid black 1px;

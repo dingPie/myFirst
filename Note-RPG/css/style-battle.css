@@ -1,0 +1,62 @@
+:root {
+    --main-margin: 4px;
+    --main-width: 210px
+}
+body {
+    width: 480px;
+}
+* {
+    box-sizing: content-box;
+}
+.main-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hero-box, .enemy-box {
+    margin: 6px;
+    width: 220px;
+    height: 444px;
+    border: black solid 1px;
+}
+.picture-box {
+    margin: var(--main-margin);
+    width: var(--main-width);
+    height: 220px;
+    border: solid 1px black;
+}
+.top-box {
+    display: flex;
+}
+.status-box {
+    margin: var(--main-margin);
+    width: var(--main-width);
+    height: 100px;
+    border: black solid 1px;
+}
+.equipment-box {
+    border: black solid 1px;
+}
+.item-box {
+    margin: var(--main-margin);
+    width: var(--main-width);
+    height: 100px;
+    border: solid black 1px;
+}
+.command-box {
+    margin: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    width: 460px;
+}
+button {
+    margin: var(--main-margin);
+    width: 128px;
+    height: 32px;
+}
+.text-box {
+    margin: auto;
+    width: 460px;
+    height: 120px;
+    border: solid black 1px;
+}
