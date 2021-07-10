@@ -8,6 +8,7 @@
 
   <link rel="stylesheet" href="css/style-battle.css">
   <script defer src="js/main.js"></script>
+  <!-- <script defer src="js/battle.js"></script> -->
 </head>
 <body>
   <h2 class="map-name">숲 속 1</h2>
@@ -15,32 +16,31 @@
   
     <div class="main-box">
         <div class="hero-box">
-            <div class="picture-box">
+
+          <div class="picture-box">
             <!-- 여긴 항상 캐릭터가 들어갈듯 -->
+          </div>
+
+          <div class="status-box">
+            이름: <span class="nickname"></span>
+            Lv: <span class="level"></span>
+    
+            <div class="hp-box">
+              HP:<span class="hp"></span> / <span class="maxHp"></span>
             </div>
-            <div class="status-box">
-                    이름: <span class="nickname"></span><br>
-            
-                    Lv: <span class="level"></span>
-            
-                    <div class="hp-box">
-                      HP:<span class="Hpbar"></span> 
-                      <span class="maxHp"></span><span class="nowHp"></span>
-                    </div>
-            
-                    <div class="sp-box">
-                    SP: <span class="Spbar"></span> 
-                    <span class="maxSp"></span><span class="nowSp"></span>
-                    </div>
-                    
-                    ATK: <span class="atk"></span>
-                    DEF: <span class="def"></span>
-                    
-                    <div class="xp-box">
-                      XP:<span class="xpbar"></span> 
-                      <span class="maxXp"></span>/ <span class="xp"></span>
-                    </div>
+    
+            <div class="sp-box"> 
+              SP:<span class="sp"></span> / <span class="maxSp"></span>
             </div>
+            
+            ATK: <span class="atk"></span>
+            DEF: <span class="def"></span>
+            
+            <div class="xp-box">
+              XP:<span class="xp"></span> / <span class="maxXp"></span>
+            </div>
+
+          </div>
         <div class="item-box">
 
         </div>
@@ -49,11 +49,19 @@
     
     <div class="enemy-box">
         <div class="picture-box">
-        <!-- 여긴 항상 캐릭터가 들어갈듯 -->
+        <!-- 적 캐릭터 이미지 삽입 -->
         </div>
         <div class="status-box">
-        <!-- 이거 메인 창이랑 같은데, 추가 클래스 넣어서 확인한번 해보자 -->
+          <span class="enemy-name"></span>
+          <div class="hp-box">
+            HP:<span class="hp"></span> / <span class="maxHp"></span>
+          </div>
+          
+          ATK: <span class="atk"></span><br>
+          DEF: <span class="def"></span><br>
+          <!-- XP:<span class="xp"></span> -->
         </div>
+        
         <div class="item-box">
             <!-- 다른걸로 쓸 계획 -->
         </div>
