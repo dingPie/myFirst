@@ -50,10 +50,9 @@ function updateStatus () { //레벨업, 경험치상승에 따른 스테이터�
   $maxXp.textContent = newCharactor.maxXp;
   $xp.textContent = newCharactor.xp;
   $maxXp.textContent = newCharactor.lv *15
-  $textBox.textContent = `${createName} 이(가) 생성되었습니다`
 }
 updateStatus(); //시작시 한번 업데이트 하고 시작
-
+$textBox.textContent = `${createName} 이(가) 생성되었습니다`
 // 레벨업 매크로. 매크로시 레벨업확인 (함수) 및 스테이터스 업데이트가 이루어짐
 const $h2 = document.querySelector('h2')
 $h2.addEventListener('click', () => {
@@ -69,11 +68,14 @@ function levelUp () {
     newCharactor.xp -= newCharactor.lv*15;
     newCharactor.lv += 1
     newCharactor.maxHp += 5
+    newCharactor.hp += 5
     newCharactor.maxSp += 2
+    newCharactor.sp += 2
     newCharactor.atk += 1
     newCharactor.def += 0.5
     newCharactor.maxp = newCharactor.lv*15;
     updateStatus ()
+    $textBox.textContent = `레벨 업! ${newCharactor.name}의 레벨은 ${newCharactor.lv}입니다`
     console.log(`레벨업!`)
   }
 }
@@ -81,8 +83,9 @@ function levelUp () {
 
 // 몬스터 클래스
 class Monster {
-  constructor (name, maxHp, hp, atk, def, xp) {
+  constructor (name, lv, maxHp, hp, atk, def, xp) {
     this.name = name;
+    this.lv = lv;
     this.maxHp = maxHp;
     this.hp = hp;
     this.atk = atk;
@@ -92,10 +95,10 @@ class Monster {
 }
 
 //이건 따로 맵 몬스터 리스트에 연결하자
-const forestMonster = [
-  {M : new Monster ('슬라임', 10, 10, 3, 2, 3)},
-  {M : new Monster ('큰 쥐', 8, 8, 3, 1, 3)},
-  {M : new Monster ('들개', 15, 15, 5, 2, 5)}
+const forestMonster = [  
+  {M : new Monster ('큰 쥐', 1, 8, 8, 3, 1, 3)},
+  {M : new Monster ('슬라임', 2, 10, 10, 3, 2, 3)},
+  {M : new Monster ('들개', 4, 15, 15, 5, 2, 5)}
 ]
 
 
@@ -104,6 +107,7 @@ const forestMonster = [
 //선택자 함수
 const $enemyName = document.querySelector('.enemy-name')
 const $enemyBox = document.querySelector('.enemy-box')
+const $enemyLv = $enemyBox.querySelector('.enemy-lv')
 const $enemyMaxHp = $enemyBox.querySelector('.maxHp')
 const $enemyHp = $enemyBox.querySelector('.hp')
 const $enemyAtk = $enemyBox.querySelector('.atk')
@@ -113,6 +117,7 @@ const $enemyXp = $enemyBox.querySelector('.xp')
 
 function addTextContent () {
   $enemyName.textContent = nowEnemy.name
+  $enemyLv.textContent = nowEnemy.lv
   $enemyMaxHp.textContent = nowEnemy.maxHp
   $enemyHp.textContent = nowEnemy.hp
   $enemyAtk.textContent = nowEnemy.atk
@@ -122,7 +127,7 @@ function addTextContent () {
 
 
 // 깊은복사를 위한 복사 함수
-function cooyNowEnemy (obj) {
+function copyNowEnemy (obj) {
   for (let i in obj) {
     nowEnemy[i] = obj[i]
   }
@@ -134,50 +139,64 @@ function cooyNowEnemy (obj) {
 let nowEnemy = {} //현재 적
 function showMonster (monsterList) {
   if (Object.keys(nowEnemy).length == 0 ) { // 객체는 == {}로 확인할수가 없다. 이 방법을 통해 해당 객체가 비었는지 체크하는것이 좋다
-    //현재 적이 없을때만 적을 생성함. 적을 잡으면 없애주는 조건필요
-  const pickIndex = Math.floor(Math.random()*monsterList.length)
-  cooyNowEnemy (monsterList[pickIndex].M) 
+  const pickIndex = Math.floor(Math.random()*monsterList.length) // 랜덤으로 인덱스 번호 뽑고
+  copyNowEnemy (monsterList[pickIndex].M) 
   addTextContent ()
   $textBox.textContent = `${nowEnemy.name} 이(가) 나타났다!`
   // 적의 상태(이름 및 체력)를 텍스트콘텐츠로 화면에 추가하는 내용이 필요 상태 
   }
 }
 // 전투 글자를 눌렀을 때 임의로 적을 등장시키는 함수. 이후 action 버튼을 추가해, 이걸 클릭시 적이 등장하는걸로 바꾸자.
-const $mapStatus = document.querySelector('.map-status')
-$mapStatus.addEventListener('click', () => {
+const $actionBtn = document.querySelector('.action-btn')
+$actionBtn.addEventListener('click', () => {
   return showMonster(forestMonster)
 })
 
 
-  // 적의 상태 및 정보를 표시하는 함수와 선택자를 만들것 (HTML 포함)
-//적이 죽으면 죽었다는 함수를 1초뒤에(딜레이)실행
+// 캐릭터 죽었는지 체크
+function charactorDaed () {
+  if (newCharactor.hp <= 0) {
+    $textBox.textContent = `당신은 죽었습니다. 캐삭해버려야되는데 아직 못만듬`
+    return
+  }
+}
 
 ///상대의 턴 만들기
 let myTurn = true;
-// 상대의 턴, 상대의 턴에는 removeEventListner 사용해주기.
-// 내가 액션 사용시 턴을 부여하는 형태로.
 
 function enemyAttack (enemy, character) {
-  let damage =  enemy.atk - character.def
+  if (character.def > enemy.atk ) {
+    $textBox.textContent
+    = `0의 피해를 입었다!`
+    myTurn = true
+    return
+  }
+  let damage =  Math.floor(enemy.atk - character.def)
   character.hp -= damage
   $hp.textContent -= damage
   $textBox.textContent
   = ` ${damage}의 피해를 입었다!`
   myTurn = true
+  charactorDaed ()
 }
 
 
 // 공격함수 (임시)
 function attack (character, enemy) {
-  if ( myTurn === true && Object.keys(nowEnemy).length != 0) { //내 턴이 트루이고, 적이 존재할때만
-  
+  if ( myTurn === true && Object.keys(nowEnemy).length != 0) {//내 턴이 트루이고, 적이 존재할때만
+    if ( enemy.def > character.atk ) { //적 방어력이 더 높을때는 데미지 0
+      $textBox.textContent
+      = `공격이 먹히지 않는다!`
+      checkDead$EnemyAttack (character, enemy)
+      return
+    }
     let damage = character.atk - enemy.def // 내 공격력 - 적 방어력 = 데미지
-  enemy.hp -= damage //상대방의 체력에서 데미지만큼 깐다.
-  $enemyHp.textContent -= damage
-  $textBox.textContent = `${nowEnemy.name}에게 ${damage}의 피해! 남은 체력은 ${nowEnemy.hp}`
-  myTurn = false //실행 후 마이턴을 false로 바꿔줌
-  
-  checkDead$EnemyAttack (character, enemy) //공격이후 죽었는지 체크 & 적의 턴 실행
+    enemy.hp -= damage //상대방의 체력에서 데미지만큼 깐다.
+    $enemyHp.textContent -= damage
+    $textBox.textContent = `${nowEnemy.name}에게 ${damage}의 피해! 남은 체력은 ${nowEnemy.hp}`
+    myTurn = false //실행 후 마이턴을 false로 바꿔줌
+    
+    checkDead$EnemyAttack (character, enemy) //공격이후 죽었는지 체크 & 적의 턴 실행
   }
 }
 
@@ -191,19 +210,52 @@ $attackBtn.addEventListener('click', () => {
 function checkDead$EnemyAttack (character, enemy) {
   if (enemy.hp <= 0) { //적의 체력이 0 이하라면 텍스트컨텐츠를 없애줌
     $textBox.textContent = `${nowEnemy.name}를 처치했다 ! ${nowEnemy.xp}의 경험치 획득!`
-    $enemyName.textContent = ''
-    $enemyMaxHp.textContent = ''
-    $enemyHp.textContent = ''
-    $enemyAtk.textContent = ''
-    $enemyDef.textContent = ''
+    newCharactor.xp += parseInt(nowEnemy.xp)
     $xp.textContent = parseInt($xp.textContent) + parseInt(nowEnemy.xp) //정수형으로 해줘야됨.
-    nowEnemy = {} // 빈 객체로 만들어주자!
-    myTurn = true //죽었다면 다시 내 턴으로 만들어서 이후 공격이 가능하게끔.
-    
+    levelUp () // 몹이 죽었을 때 레벨업 체크까지.
+    finishBattle ()
   } else { //죽지 않았다면 적의 턴을 실행
     setTimeout(()=> { // 1초 뒤 실행으로 차이 발생.
       return enemyAttack (enemy, character) // attack과 비슷한 적 공격함수. 
-    }, 1500)
+    }, 1000)
     //죽지 않았을 때, 적의 공격 실행
   }
 }
+
+
+function finishBattle () {
+  $enemyName.textContent = ''
+  $enemyMaxHp.textContent = ''
+  $enemyHp.textContent = ''
+  $enemyAtk.textContent = ''
+  $enemyDef.textContent = ''
+  nowEnemy = {} // 빈 객체로 만들어주자!
+  myTurn = true //죽었다면 다시 내 턴으로 만들어서 이후 공격이 가능하게끔.
+}
+
+//도망함수
+const $runBtn = document.querySelector('.run-btn')
+function runBattle (enemy, charactor) {
+  if (charactor.lv > enemy.lv) {
+    $textBox.textContent = `${nowEnemy.name}으로부터 성공적으로 도망쳤다!!`
+    finishBattle ()
+    console.log(`레벨이 높아서 100%도망`)
+    return
+  }
+  if (myTurn === true && Object.keys(nowEnemy).length !== 0) {
+    let runProbability = Math.floor(Math.random()*10)
+
+    if (runProbability >= 3) {
+      $textBox.textContent = `${nowEnemy.name}으로부터 성공적으로 도망쳤다!!`
+      finishBattle ()
+    } else {
+      $textBox.textContent = `도망 실패!`
+      setTimeout(() => {
+        enemyAttack (enemy, charactor)
+    }, 1000)
+    }
+  }
+}
+$runBtn.addEventListener('click', () => {
+  return runBattle (nowEnemy, newCharactor)
+})

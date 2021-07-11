@@ -16,32 +16,34 @@ body {
 .hero-box, .enemy-box {
     margin: 6px;
     width: 220px;
-    height: 444px;
+    height: 424px;
     border: black solid 1px;
 }
 .picture-box {
     margin: var(--main-margin);
     width: var(--main-width);
-    height: 220px;
+    height: 210px;
     border: solid 1px black;
-}
-.top-box {
-    display: flex;
 }
 .status-box {
     margin: var(--main-margin);
     width: var(--main-width);
-    height: 100px;
-    border: black solid 1px;
-}
-.equipment-box {
+    height: 130px;
     border: black solid 1px;
 }
 .item-box {
+    display: flex;
+    align-items: center;
     margin: var(--main-margin);
     width: var(--main-width);
-    height: 100px;
+    height: 60px;
     border: solid black 1px;
+}
+.quick-item1, .quick-item2, .quick-item3, .inventory {
+    margin: 4px auto;
+    width: 45px;
+    height: 45px;
+    border: black solid 1px;
 }
 .command-box {
     margin: 8px 12px;
@@ -59,4 +61,13 @@ button {
     width: 460px;
     height: 120px;
     border: solid black 1px;
+}
+
+.action-box {
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+}
+.action-btn, .movepage-btn {
+    width: 200px;
 }
