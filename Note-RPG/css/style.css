@@ -1,27 +1,81 @@
+:root {
+  --main-margin: 4px;
+  --main-width: 210px;
+  --status-page-width: 220px;
+}
+body {
+  margin: 4px;
+  width: 480px;
+  background-image: url(/test.png);
+  background-position-x: -80px;
+  background-size: cover;
+}
 * {
   box-sizing: content-box;
 }
-.top-box {
+.main-box {
+  margin: 4px;
   display: flex;
+  justify-content: space-between;
+  width: 460px;
 }
-.charactor-box {
-  width: 200px;
-  height: 300px;
-  border: solid black 1px;
-}
-.status-box {
+
+.hero-box, .stat-eqiup-box {
+  margin: 4px;
+  width: 220px;
+  height: 320px;
   border: black solid 1px;
 }
+.picture-box {
+  margin: var(--main-margin);
+  width: var(--status-page-width);
+  height: 320px;
+  border: solid 1px black;
+}
+.status-box, .equipment-box {
+  margin: var(--main-margin);
+  width: var(--status-page-width);
+  height: 150px;
+  border: black solid 1px;
+}
+
 .equipment-box {
-  border: black solid 1px;
+  margin-top: 12px;
+ /* 내부 모양 */
 }
-.item-box {
-  width: 300px;
-  height: 100px;
+
+.all-item-box {
+  display: flex;
+  align-items: center;
+  margin: 6px;
+  width: 460px;
+  height: 120px;
   border: solid black 1px;
+}
+
+.command-box {
+  margin: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  width: 460px;
+}
+button {
+  margin: var(--main-margin);
+  width: 128px;
+  height: 32px;
 }
 .text-box {
-  width: 300px;
-  height: 100px;
+  margin: 4px;
+  width: 460px;
+  height: 120px;
   border: solid black 1px;
+}
+
+.action-box {
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+}
+.action-btn, .movepage-btn {
+  width: 200px;
 }

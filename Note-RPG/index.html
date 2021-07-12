@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>NOTE RPG | 상태</title>
 
   <link rel="stylesheet" href="css/style.css">
   <script defer src="js/main.js"></script>
@@ -13,58 +13,59 @@
 <body>
 
 <h2>NOTE RPG</h2>
+<h3>상태창</h3>
+
+<div class="main-box">
 
 
-<div class="top-box">
-  <div class="charactor-box">
+  <div class="picture-box"></div>
 
-  </div>
+  <div class="stat-equip-box">
+    <div class="status-box">
+      이름: <span class="nickname"></span><br>
 
-    <div class="stat-equip-box">
-      <div class="status-box">
-        이름: <span class="nickname"></span><br>
+      Lv: <span class="level"></span>
 
-        Lv: <span class="level"></span>
-
-        <div class="hp-box">
-          HP:<span class="Hpbar"></span> 
-          <span class="maxHp"></span><span class="hp"></span>
-        </div>
-
-        <div class="sp-box">
-        SP: <span class="Spbar"></span> 
-        <span class="maxSp"></span><span class="sp"></span>
-        </div>
-        
-        ATK: <span class="atk"></span>
-        DEF: <span class="def"></span>
-        
-        <div class="xp-box">
-          XP:<span class="xpbar"></span> 
-          <span class="maxXp"></span>/ <span class="xp"></span>
-        </div>
+      <div class="hp-box">
+        HP:<span class="Hpbar"></span> 
+        <span class="maxHp"></span> / <span class="hp"></span>
       </div>
 
-    
+      <div class="sp-box">
+        SP: <span class="Spbar"></span> 
+        <span class="maxSp"></span> / <span class="sp"></span>
+      </div>
+      
+      ATK: <span class="atk"></span>
+      DEF: <span class="def"></span>
+        
+      <div class="xp-box">
+        XP:<span class="xpbar"></span> 
+        <span class="maxXp"></span>/ <span class="xp"></span>
+      </div>
+    </div>
+
+  
     <div class="equipment-box">
       무기:<span class="weapan"></span>
       방어구: <span class="armor"></span>
     </div>
-
   </div>
 </div>
 
 <div class="botton-box">
-  <div class="item-box">
-
+  <div class="all-item-box">
+    인벤 어케 구성할까
   </div>
   <div class="text-box">
 
   </div>
 
-  <div class="control-box">
-    <a href='map.html'>사냥터로</a>
+  <div class="action-box">
+    <button class='action-btn'>뭐로쓰지</button>
+    <button class="movepage-btn">지역을 이동한다(미구현)</button>
   </div>
+  
 </div>
 
 </body>

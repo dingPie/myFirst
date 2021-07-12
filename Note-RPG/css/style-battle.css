@@ -3,6 +3,7 @@
     --main-width: 210px
 }
 body {
+    margin: 4px;
     width: 480px;
 }
 * {
@@ -46,7 +47,7 @@ body {
     border: black solid 1px;
 }
 .command-box {
-    margin: 8px 12px;
+    margin: 6px 12px;
     display: flex;
     justify-content: space-between;
     width: 460px;
@@ -57,7 +58,7 @@ button {
     height: 32px;
 }
 .text-box {
-    margin: auto;
+    margin: 4px;
     width: 460px;
     height: 120px;
     border: solid black 1px;
@@ -70,4 +71,7 @@ button {
 }
 .action-btn, .movepage-btn {
     width: 200px;
+}
+.status-display {
+    display: none;
 }
