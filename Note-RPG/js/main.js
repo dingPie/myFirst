@@ -84,7 +84,7 @@ $h2.addEventListener('click', () => {
 
 // 몬스터 클래스
 class Monster {
-  constructor (name, lv, maxHp, hp, atk, def, xp) {
+  constructor (name, lv, maxHp, hp, atk, def, xp, img) {
     this.name = name;
     this.lv = lv;
     this.maxHp = maxHp;
@@ -92,15 +92,16 @@ class Monster {
     this.atk = atk;
     this.def = def;
     this.xp = xp;
+    this.img = img
   }
 }
 
 //이건 따로 맵 몬스터 리스트에 연결하자
 //숲 속 1 몬스터 리스트
 const forestMonster = [  
-  {M : new Monster ('큰 쥐', 1, 8, 8, 3, 1, 3)},
-  {M : new Monster ('슬라임', 2, 10, 10, 3, 2, 3)},
-  {M : new Monster ('들개', 4, 15, 15, 5, 2, 5)}
+  {M : new Monster ('큰 쥐', 1, 8, 8, 3, 1, 3, '/test.png')},
+  {M : new Monster ('슬라임', 2, 10, 10, 3, 2, 3, '/test1.png')},
+  {M : new Monster ('들개', 4, 15, 15, 5, 2, 5, '/test1.png')}
 ]
 
 
@@ -114,17 +115,18 @@ const $enemyHp = $enemyBox.querySelector('.hp')
 const $enemyAtk = $enemyBox.querySelector('.atk')
 const $enemyDef = $enemyBox.querySelector('.def')
 const $enemyXp = $enemyBox.querySelector('.xp')
+const $charactorPicture = document.querySelector('.picture-box')
+const $enemyPicture = $enemyBox.querySelector('.picture-box')
 const $statusDisplay = $enemyBox.querySelector('.status-display')
 
 
 //적 등장
 let nowEnemy = {} //현재 적
-
 function showMonster (monsterList) {
   if (Object.keys(nowEnemy).length == 0 ) { // 객체는 == {}로 확인할수가 없다. 이 방법을 통해 해당 객체가 비었는지 체크하는것이 좋다
   const pickIndex = Math.floor(Math.random()*monsterList.length) // 랜덤으로 인덱스 번호 뽑고
   copyNowEnemy (monsterList[pickIndex].M) 
-  addTextContent ()
+  updateEnemy ()
   $textBox.textContent = `${nowEnemy.name} 이(가) 나타났다!`
   $statusDisplay.style.display = 'block'
   }
@@ -139,15 +141,19 @@ function copyNowEnemy (obj) {
 }
 
 // 적 상태창 업데이트
-function addTextContent () {
+const enemyImg = new Image()
+$enemyPicture.append(enemyImg)
+function updateEnemy () {
   $enemyName.textContent = nowEnemy.name
   $enemyLv.textContent = nowEnemy.lv
   $enemyMaxHp.textContent = nowEnemy.maxHp
   $enemyHp.textContent = nowEnemy.hp
   $enemyAtk.textContent = nowEnemy.atk
   $enemyDef.textContent = nowEnemy.def
+  enemyImg.src = nowEnemy.img
   // $enemyXp.textContent = nowEnemy.xp
 }
+
 
 
 // 공격 액션
@@ -208,10 +214,17 @@ function enemyAttack (enemy, character) {
 }
 
 // 내 캐릭터 죽었는지 체크
+const $deadBox = document.querySelector('.dead-box')
 function charactorDaed () {
   if (newCharactor.hp <= 0) {
-    $textBox.textContent = `당신은 죽었습니다. 캐삭해버려야되는데 아직 못만듬`
-    return
+    newCharactor.maxHp -= 5
+    $maxHp.textContent -= 5
+    newCharactor.xp = 0
+    $xp.textContent = 0
+    $textBox.textContent = `당신은 ${nowEnemy.name}에게 죽었습니다...`
+    myTurn = false;
+    $deadBox.style.display = "block"
+    //이제 마을 귀환밖에 못하게
   }
 }
 

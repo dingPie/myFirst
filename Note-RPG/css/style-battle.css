@@ -75,3 +75,18 @@ button {
 .status-display {
     display: none;
 }
+
+.dead-box {
+    display: none;
+    position: absolute;
+    top: 360px;
+    left: 110px;
+    border: solid 1px black;
+    width: 260px;
+    height: 100px;
+    text-align: center;
+    line-height: 40px;
+    z-index: 5px;
+    background: white;
+    font-size: 18px;
+}

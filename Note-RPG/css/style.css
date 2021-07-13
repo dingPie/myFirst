@@ -6,9 +6,9 @@
 body {
   margin: 4px;
   width: 480px;
-  background-image: url(/test.png);
+  /* background-image: url(/test.png);
   background-position-x: -80px;
-  background-size: cover;
+  background-size: cover; */
 }
 * {
   box-sizing: content-box;
