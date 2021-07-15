@@ -28,7 +28,12 @@ class Charactor {
     this.maxXp = maxXp;
     this.xp = xp;
   }
+  // equipWeapan (weapan) {
+  //   this.atk += parseInt(weapan.atk)
+  //   $atk.textContent = parseInt(.atk) + parseInt(weapan.atk)
+  // }
 }
+
 
 // 레벨업시 스테이터스 값 증가량.
 function levelUp () {
@@ -69,7 +74,6 @@ const createName = '파이' //임시지정
 // 닉네임과 스텟 초기값 세팅
 const newCharactor = new Charactor (createName, 1, 20, 20, 5, 5, 3, 1, 15, 0)
 
-
 updateStatus(); //시작시 한번 업데이트 하고 시작
 $textBox.textContent = `${createName} 이(가) 생성되었습니다`
 // 레벨업 매크로. 매크로시 레벨업확인 (함수) 및 스테이터스 업데이트가 이루어짐
@@ -105,6 +109,70 @@ const forestMonster = [
 ]
 
 
+
+//소비아이템 함수
+
+// let consumeItemList =[
+//   {name = '포션', }
+// ] //이걸 인자로 받아서 각 클래스 안에 효과를 넣을지, 아니면 포션 사용시
+// swhich 문으로 효과를 발동시킬지 고민중.
+
+const $itemBox = document.querySelector('.all-item-box')
+const $h3 = document.querySelector('h3');
+
+function getItemComsume () {
+  if ($itemBox.childElementCount < 20) {
+  let _div = document.createElement("div")
+  _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
+  _div.textContent ='소비' //원랜 이미지를 추가해야겠지?
+  $itemBox.append(_div)
+  }
+  $consume[$consume.length-1].addEventListener('click', useConsumeItem)
+  //아이템을 얻을때마다 새 아이템에 consume class의 이벤트 추가
+}
+
+$h3.addEventListener('click', getItemComsume)
+
+const $consume = document.getElementsByClassName('consume')
+function useConsumeItem () { 
+  //효과발휘 함수. 인자 받아옴.
+  this.remove()
+}
+
+//페이지 나누긴 해야겠다. 함수가 고장나니까 뭘 못하네.
+
+//장비아이템 제작중.
+const $weapan = document.getElementsByClassName('weapan') 
+let nowWeapan = '';
+function getItemWeapan () {
+  if ($itemBox.childElementCount < 20) {
+  let _div = document.createElement("div")
+  _div.className = 'weapan item' // 이렇게 하면 클래스 두개추가 가능.
+  _div.textContent ='장비(무기)' //원랜 이미지를 추가해야겠지?
+  $itemBox.append(_div)
+  }
+  $weapan[$weapan.length-1].addEventListener('click', uesWeapanItem)
+  //아이템을 얻을때마다 새 아이템에 consume class의 이벤트 추가
+}
+$weapan[$weapan.length-1].addEventListener('click', uesWeapanItem)
+
+function uesWeapanItem () {
+  if (nowWeapan == '') { //무기를 장착하고있지 않으면.
+  //  nowWeapan = this... 이 무기를 장비해준다.
+  this.remove() //그리고 삭제
+  } else {
+    // $itemBox.append(nowWeapan) 현재 무기를 인벤에 추가해준다.
+    //  nowWeapan = this... 이 무기를 장비해준다.
+    this.remove() //그리고 삭제
+  }
+}
+
+
+//dropItem으로 함수를 모으고, 거기에 메서드로 추가해야되나?
+//아니네? 확률로 뽑아서 하면 되네 걍. 0~100까지 중에 나오는 함수로.
+//대신 인수를 받아서, 그 아이템을 가질 수 있게. 이름, 이미지추가, 사용했을때 효과발생.
+
+
 //배틀 페이지
 //선택자 함수
 const $enemyName = document.querySelector('.enemy-name')
@@ -116,8 +184,8 @@ const $enemyAtk = $enemyBox.querySelector('.atk')
 const $enemyDef = $enemyBox.querySelector('.def')
 const $enemyXp = $enemyBox.querySelector('.xp')
 const $charactorPicture = document.querySelector('.picture-box')
-const $enemyPicture = $enemyBox.querySelector('.picture-box')
 const $statusDisplay = $enemyBox.querySelector('.status-display')
+const $enemyPictureDisplay = $enemyBox.querySelector('.picture-display')
 
 
 //적 등장
@@ -125,24 +193,25 @@ let nowEnemy = {} //현재 적
 function showMonster (monsterList) {
   if (Object.keys(nowEnemy).length == 0 ) { // 객체는 == {}로 확인할수가 없다. 이 방법을 통해 해당 객체가 비었는지 체크하는것이 좋다
   const pickIndex = Math.floor(Math.random()*monsterList.length) // 랜덤으로 인덱스 번호 뽑고
-  copyNowEnemy (monsterList[pickIndex].M) 
+  copyObject (nowEnemy ,monsterList[pickIndex].M) 
   updateEnemy ()
   $textBox.textContent = `${nowEnemy.name} 이(가) 나타났다!`
   $statusDisplay.style.display = 'block'
+  $enemyPictureDisplay.style.display = 'block'
   }
 }
 
-// 적 객체를 깊은복사를 위한 함수
-function copyNowEnemy (obj) {
+// 객체의 깊은복사를 위한 함수
+function copyObject (object ,obj) {
   for (let i in obj) {
-    nowEnemy[i] = obj[i]
+    object[i] = obj[i]
   }
-  return nowEnemy
+  return object
 }
-
 // 적 상태창 업데이트
-const enemyImg = new Image()
-$enemyPicture.append(enemyImg)
+const enemyImg = new Image() //새 이미지 변수
+$enemyPictureDisplay.append(enemyImg) // 이미지를 적 이미지 안에 추가해줌
+
 function updateEnemy () {
   $enemyName.textContent = nowEnemy.name
   $enemyLv.textContent = nowEnemy.lv
@@ -153,7 +222,6 @@ function updateEnemy () {
   enemyImg.src = nowEnemy.img
   // $enemyXp.textContent = nowEnemy.xp
 }
-
 
 
 // 공격 액션
@@ -232,6 +300,7 @@ function finishBattle () { //전투가 끝났을 때
   nowEnemy = {} // 빈 객체로 만들어주자!
   myTurn = true //죽었다면 다시 내 턴으로 만들어서 이후 공격이 가능하게끔.
   $statusDisplay.style.display = 'none' // 적 상태창이 안보이게 변경. 따로 textContent 지정 안해도 되서 편함
+  $enemyPictureDisplay.style.display ='none' //w적 이미지도 안보이게
 }
 
 //도망함수
@@ -282,3 +351,23 @@ $actionBtn.addEventListener('click', () => {
   // $enemyHp.textContent = ''
   // $enemyAtk.textContent = ''
   // $enemyDef.textContent = ''
+
+
+class Weapan {
+  constructor (name, lv, atk, def) {
+    this.name = name;
+    this.lv = lv;
+    this.atk = atk;
+    this.def = def
+  }
+}
+
+
+const nowEquipment = {}
+
+const test = new Weapan ('각목', 1, 2, 0)
+
+copyObject(nowEquipment, test)
+$atk.textContent = `${newCharactor.atk} + ${nowEquipment.atk}`
+newCharactor.atk = newCharactor.atk + nowEquipment.atk
+
