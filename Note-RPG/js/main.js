@@ -74,6 +74,10 @@ const createName = '파이' //임시지정
 // 닉네임과 스텟 초기값 세팅
 const newCharactor = new Charactor (createName, 1, 20, 20, 5, 5, 3, 1, 15, 0)
 
+// const jsonCharactor = JSON.stringify(newCharactor)
+// console.log(jsonCharactor)
+
+
 updateStatus(); //시작시 한번 업데이트 하고 시작
 $textBox.textContent = `${createName} 이(가) 생성되었습니다`
 // 레벨업 매크로. 매크로시 레벨업확인 (함수) 및 스테이터스 업데이트가 이루어짐
@@ -109,33 +113,74 @@ const forestMonster = [
 ]
 
 
-
 //소비아이템 함수
 
-// let consumeItemList =[
-//   {name = '포션', }
-// ] //이걸 인자로 받아서 각 클래스 안에 효과를 넣을지, 아니면 포션 사용시
+class ConsumeItem {
+  constructor(name, type, value) {
+    this.name = name
+    this.value = value
+    this.type = type
+  }
+}
+
+
+let consumeItemList =[
+  {I: new ConsumeItem ('초소형 포션', 'potion', 10)},
+  {I: new ConsumeItem ('소형 포션', 'potion', 25)},
+  {I: new ConsumeItem ('짱돌', 'throw', 2)},
+  {I: new ConsumeItem ('투척용 단검', 'throw', 5)}  
+]
+
+ //이걸 인자로 받아서 각 클래스 안에 효과를 넣을지, 아니면 포션 사용시
 // swhich 문으로 효과를 발동시킬지 고민중.
 
 const $itemBox = document.querySelector('.all-item-box')
 const $h3 = document.querySelector('h3');
 
+const inventroyList = []
+//아이템 획득시
 function getItemComsume () {
-  if ($itemBox.childElementCount < 20) {
+  if ($itemBox.childElementCount < 20) { //중복값을 제거해주려면, set 이용할것
   let _div = document.createElement("div")
   _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
-  _div.textContent ='소비' //원랜 이미지를 추가해야겠지?
-  $itemBox.append(_div)
+  _div.textContent ='초소형 포션' //원랜 이미지를 추가해야겠지?
+  let itemDate;
+  for (let i = 0; i < consumeItemList.length; i++) { //같은 이름을 찾을때 까지 반복
+    if (consumeItemList[i].I.name == _div.textContent) {
+      itemDate = consumeItemList[i]
+    }
   }
+  $itemBox.append(_div)
+  inventroyList.push(itemDate)
   $consume[$consume.length-1].addEventListener('click', useConsumeItem)
+  console.log(inventroyList)
   //아이템을 얻을때마다 새 아이템에 consume class의 이벤트 추가
 }
-
+}
+const $consume = document.getElementsByClassName('consume') //클래스 형태로 해야, 배열처럼 하나씩 추가해줄 수 있다.
 $h3.addEventListener('click', getItemComsume)
 
-const $consume = document.getElementsByClassName('consume')
-function useConsumeItem () { 
-  //효과발휘 함수. 인자 받아옴.
+// 아이템 타입함수
+function effectConsumeItem () {
+  for (let i = 0; i < consumeItemList.length; i++) { //같은 이름을 찾을때 까지 반복
+    if (consumeItemList[i].I.name == test1) { //사용 아이템의 이름과 아이템 리스트의 이름이 같다면,
+      switch (consumeItemList[i].I.type) { //스위치문으로 타입 체크
+        case 'potion': //타입이 potion이면 밸류만큼 회복
+        $textBox.textContent = `${consumeItemList[i].I.name}을 사용했다. 체력을 ${consumeItemList[i].I.value}만큼 회복했다.`
+          break;
+        case 'throw': // 타입이 throw면 밸류만큼 데미지
+          $textBox.textContent = `${consumeItemList[i].I.name}을 던졌다. 적에게 ${consumeItemList[i].I.value}의 피해를 입혔다.`
+          break;
+      }
+    }
+  }
+}
+let test1 = prompt('임시 아이템 사용테스트', '');
+effectConsumeItem ()
+
+function useConsumeItem () {
+  effectConsumeItem()
+  inventroyList.splice()
   this.remove()
 }
 
@@ -171,6 +216,9 @@ function uesWeapanItem () {
 //dropItem으로 함수를 모으고, 거기에 메서드로 추가해야되나?
 //아니네? 확률로 뽑아서 하면 되네 걍. 0~100까지 중에 나오는 함수로.
 //대신 인수를 받아서, 그 아이템을 가질 수 있게. 이름, 이미지추가, 사용했을때 효과발생.
+
+
+
 
 
 //배틀 페이지
@@ -371,3 +419,21 @@ copyObject(nowEquipment, test)
 $atk.textContent = `${newCharactor.atk} + ${nowEquipment.atk}`
 newCharactor.atk = newCharactor.atk + nowEquipment.atk
 
+
+
+
+// itemList = [
+//   {name = '포션', value = 5, type = 'posion'},
+//   {name = '돌맹이', value = 2, type = 'throw'},
+// ]
+
+// switch (???.type) { //이 아이템의 타입을 찾는거. 아이템을 클릭했을때,
+// //그 아이템의 타입을 찾아서 효과를 사용하는걸 생각해야해
+//   case 'posion':
+//     newCharactor.hp += value
+//     break
+//   case 'throw' :
+//     nowEnemy.hp -= value
+//     break
+//     ...
+// }
