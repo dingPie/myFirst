@@ -1,5 +1,7 @@
 'use strict'
 
+import {Charactor, ConsumeItem, Monster} from './class.js'
+
 //선택자 변수
 const $nickName = document.querySelector('.nickname')
 const $level = document.querySelector('.level')
@@ -14,25 +16,25 @@ const $xp = document.querySelector('.xp')
 const $textBox = document.querySelector('.text-box')
 
 
-//캐릭터 클래스 (함수 추가예정)
-class Charactor {
-  constructor (name, lv, maxHp, hp, maxSp, sp, atk, def, maxXp, xp) {
-    this.name = createName;
-    this.lv = lv;
-    this.maxHp = maxHp;
-    this.hp = hp;
-    this.maxSp = maxSp;
-    this.sp = sp;
-    this.atk = atk;
-    this.def = def;
-    this.maxXp = maxXp;
-    this.xp = xp;
-  }
-  // equipWeapan (weapan) {
-  //   this.atk += parseInt(weapan.atk)
-  //   $atk.textContent = parseInt(.atk) + parseInt(weapan.atk)
-  // }
-}
+// //캐릭터 클래스 (함수 추가예정)
+// class Charactor {
+//   constructor (name, lv, maxHp, hp, maxSp, sp, atk, def, maxXp, xp) {
+//     this.name = createName;
+//     this.lv = lv;
+//     this.maxHp = maxHp;
+//     this.hp = hp;
+//     this.maxSp = maxSp;
+//     this.sp = sp;
+//     this.atk = atk;
+//     this.def = def;
+//     this.maxXp = maxXp;
+//     this.xp = xp;
+//   }
+//   // equipWeapan (weapan) {
+//   //   this.atk += parseInt(weapan.atk)
+//   //   $atk.textContent = parseInt(.atk) + parseInt(weapan.atk)
+//   // }
+// }
 
 
 // 레벨업시 스테이터스 값 증가량.
@@ -90,98 +92,100 @@ $h2.addEventListener('click', () => {
 })
 
 
-// 몬스터 클래스
-class Monster {
-  constructor (name, lv, maxHp, hp, atk, def, xp, img) {
-    this.name = name;
-    this.lv = lv;
-    this.maxHp = maxHp;
-    this.hp = hp;
-    this.atk = atk;
-    this.def = def;
-    this.xp = xp;
-    this.img = img
-  }
-}
-
-//이건 따로 맵 몬스터 리스트에 연결하자
-//숲 속 1 몬스터 리스트
-const forestMonster = [  
-  {M : new Monster ('큰 쥐', 1, 8, 8, 3, 1, 3, '/test.png')},
-  {M : new Monster ('슬라임', 2, 10, 10, 3, 2, 3, '/test1.png')},
-  {M : new Monster ('들개', 4, 15, 15, 5, 2, 5, '/test1.png')}
-]
-
-
 //소비아이템 함수
 
-class ConsumeItem {
-  constructor(name, type, value) {
-    this.name = name
-    this.value = value
-    this.type = type
-  }
-}
+// class ConsumeItem { //아이템 형식 클래스
+//   constructor(name, type, value, itemCode) {
+//     this.name = name
+//     this.value = value
+//     this.type = type
+//     this.itemCode = itemCode
+//   }
+// }
 
 
-let consumeItemList =[
-  {I: new ConsumeItem ('초소형 포션', 'potion', 10)},
-  {I: new ConsumeItem ('소형 포션', 'potion', 25)},
-  {I: new ConsumeItem ('짱돌', 'throw', 2)},
-  {I: new ConsumeItem ('투척용 단검', 'throw', 5)}  
-]
+// let consumeItemList =[
+//   {I: new ConsumeItem ('초소형 포션', 'potion', 10, 'potion1')},
+//   {I: new ConsumeItem ('소형 포션', 'potion', 25, 'potion2')},
+//   {I: new ConsumeItem ('짱돌', 'throw', 2, 'throw1')},
+//   {I: new ConsumeItem ('투척용 단검', 'throw', 5, 'throw2')}  
+// ]
 
- //이걸 인자로 받아서 각 클래스 안에 효과를 넣을지, 아니면 포션 사용시
-// swhich 문으로 효과를 발동시킬지 고민중.
+let consumeItemList = new Map([
+  ['초소형 포션', new ConsumeItem ('초소형 포션', 'potion', 10, 'potion1')],
+  ['소형 포션', new ConsumeItem ('소형 포션', 'potion', 25, 'potion2')],
+  ['짱돌', new ConsumeItem ('짱돌', 'throw', 2, 'throw1')],
+  ['투척용 단검', new ConsumeItem ('투척용 단검', 'throw', 5, 'throw2')]  
+])
+
 
 const $itemBox = document.querySelector('.all-item-box')
 const $h3 = document.querySelector('h3');
-
 const inventroyList = []
+const $consume = document.getElementsByClassName('consume')
+// comsume을 클래스 값으로 배열처럼 만들어서 
+
+
 //아이템 획득시
-function getItemComsume () {
+function getItemComsume (targetItem) {
   if ($itemBox.childElementCount < 20) { //중복값을 제거해주려면, set 이용할것
-  let _div = document.createElement("div")
-  _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
-  _div.textContent ='초소형 포션' //원랜 이미지를 추가해야겠지?
-  let itemDate;
-  for (let i = 0; i < consumeItemList.length; i++) { //같은 이름을 찾을때 까지 반복
-    if (consumeItemList[i].I.name == _div.textContent) {
-      itemDate = consumeItemList[i]
-    }
+    let _div = document.createElement("div")
+    _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
+    _div.textContent = targetItem //아이템이름 (name)
+    //이미지도 추가해야됨
+    $itemBox.append(_div)
+
+    let itemData; //인벤토리 데이터에 추가해줄 변수
+      if (consumeItemList.get('초소형포션') == targetItem) {
+        itemData = consumeItemList[i] // itemDate에 찾은 아이템정보를 넣어줌
+      }
+    inventroyList.push(itemData) //데이터리스트에 push
+    console.log(inventroyList) //임시.
+
+    $consume[$consume.length-1].addEventListener('click', useConsumeItem) //아이템이 추가될때마다, event달아주기
+  } else {
+    $textBox.textContent = '인벤토리가 가득 찼습니다.'
   }
-  $itemBox.append(_div)
-  inventroyList.push(itemDate)
-  $consume[$consume.length-1].addEventListener('click', useConsumeItem)
-  console.log(inventroyList)
-  //아이템을 얻을때마다 새 아이템에 consume class의 이벤트 추가
 }
-}
-const $consume = document.getElementsByClassName('consume') //클래스 형태로 해야, 배열처럼 하나씩 추가해줄 수 있다.
-$h3.addEventListener('click', getItemComsume)
+
 
 // 아이템 타입함수
-function effectConsumeItem () {
-  for (let i = 0; i < consumeItemList.length; i++) { //같은 이름을 찾을때 까지 반복
-    if (consumeItemList[i].I.name == test1) { //사용 아이템의 이름과 아이템 리스트의 이름이 같다면,
-      switch (consumeItemList[i].I.type) { //스위치문으로 타입 체크
+function effectConsumeItem (targetName) {//같은 이름을 찾을때 까지 반복
+    if (consumeItemList.get(targetName).name == targetName) { //사용 아이템의 이름과 아이템 리스트의 이름이 같다면,
+
+      switch (consumeItemList.get(targetName).type) { //스위치문으로 타입 체크
         case 'potion': //타입이 potion이면 밸류만큼 회복
-        $textBox.textContent = `${consumeItemList[i].I.name}을 사용했다. 체력을 ${consumeItemList[i].I.value}만큼 회복했다.`
-          break;
+        $textBox.textContent = `${consumeItemList.get('초소형 포션').name}을 사용했다. 체력을 ${consumeItemList.get('초소형 포션').value}만큼 회복했다.`
+        //실제로 데이터로 회복시켜주는거 해야됨  
+        break;
+
         case 'throw': // 타입이 throw면 밸류만큼 데미지
-          $textBox.textContent = `${consumeItemList[i].I.name}을 던졌다. 적에게 ${consumeItemList[i].I.value}의 피해를 입혔다.`
+          $textBox.textContent = `${consumeItemList.get('초소형 포션').name}을 던졌다. 적에게 ${consumeItemList.get('초소형 포션').value}의 피해를 입혔다.`
+          //실제로 데이터로 회복시켜주는거 해야됨  
           break;
       }
+    } else {
+      console.log('아이템이 없습니당.')
     }
-  }
 }
-let test1 = prompt('임시 아이템 사용테스트', '');
-effectConsumeItem ()
 
 function useConsumeItem () {
-  effectConsumeItem()
-  inventroyList.splice()
-  this.remove()
+  let itemData;
+    let target = this.textContent // _div가 정의되어있지 않아서 this로 해줌
+      itemData = consumeItemList.get(target)
+  effectConsumeItem(itemData.name) //효과발동
+  inventroyList.pop(itemData) //사용한 데이터를 제거,
+  this.remove() //화면에서 제거.
+
+  console.log(itemData.name)
+  console.log(inventroyList)
+
+}
+
+if($h3!=undefined){
+  $h3.addEventListener('click', () => {
+    return getItemComsume ('초소형 포션')
+  })
 }
 
 //페이지 나누긴 해야겠다. 함수가 고장나니까 뭘 못하네.
@@ -199,7 +203,6 @@ function getItemWeapan () {
   $weapan[$weapan.length-1].addEventListener('click', uesWeapanItem)
   //아이템을 얻을때마다 새 아이템에 consume class의 이벤트 추가
 }
-$weapan[$weapan.length-1].addEventListener('click', uesWeapanItem)
 
 function uesWeapanItem () {
   if (nowWeapan == '') { //무기를 장착하고있지 않으면.
@@ -217,7 +220,11 @@ function uesWeapanItem () {
 //아니네? 확률로 뽑아서 하면 되네 걍. 0~100까지 중에 나오는 함수로.
 //대신 인수를 받아서, 그 아이템을 가질 수 있게. 이름, 이미지추가, 사용했을때 효과발생.
 
-
+const forestMonster = [  
+  {M : new Monster ('큰 쥐', 1, 8, 8, 3, 1, 3, '/test.png')},
+  {M : new Monster ('슬라임', 2, 10, 10, 3, 2, 3, '/test1.png')},
+  {M : new Monster ('들개', 4, 15, 15, 5, 2, 5, '/test1.png')}
+]
 
 
 
@@ -256,6 +263,8 @@ function copyObject (object ,obj) {
   }
   return object
 }
+
+
 // 적 상태창 업데이트
 const enemyImg = new Image() //새 이미지 변수
 $enemyPictureDisplay.append(enemyImg) // 이미지를 적 이미지 안에 추가해줌
@@ -271,6 +280,8 @@ function updateEnemy () {
   // $enemyXp.textContent = nowEnemy.xp
 }
 
+
+let myTurn = true;
 
 // 공격 액션
 function attack (character, enemy) {
@@ -291,6 +302,24 @@ function attack (character, enemy) {
   }
 }
 
+///상대의 턴 만들기
+
+function enemyAttack (enemy, character) {
+  if (character.def > enemy.atk ) {
+    $textBox.textContent
+    = `0의 피해를 입었다!`
+    myTurn = true
+    return
+  }
+  let damage =  Math.floor(enemy.atk - character.def)
+  character.hp -= damage
+  $hp.textContent -= damage
+  $textBox.textContent
+  = ` ${damage}의 피해를 입었다!`
+  myTurn = true
+  charactorDaed ()
+}
+
 
 //죽었는지 확인 & 적의 턴
 function checkDead$EnemyAttack (character, enemy) {
@@ -308,25 +337,6 @@ function checkDead$EnemyAttack (character, enemy) {
     }, 1000)
     //죽지 않았을 때, 적의 공격 실행
   }
-}
-
-///상대의 턴 만들기
-let myTurn = true;
-
-function enemyAttack (enemy, character) {
-  if (character.def > enemy.atk ) {
-    $textBox.textContent
-    = `0의 피해를 입었다!`
-    myTurn = true
-    return
-  }
-  let damage =  Math.floor(enemy.atk - character.def)
-  character.hp -= damage
-  $hp.textContent -= damage
-  $textBox.textContent
-  = ` ${damage}의 피해를 입었다!`
-  myTurn = true
-  charactorDaed ()
 }
 
 // 내 캐릭터 죽었는지 체크
@@ -362,7 +372,7 @@ function runBattle (enemy, charactor) {
   if (myTurn === true && Object.keys(nowEnemy).length !== 0) {
     let runProbability = Math.floor(Math.random()*10)
 
-    if (runProbability >= 3) { // 70% 확률로 도망
+    if (runProbability >= 2) { // 70% 확률로 도망
       $textBox.textContent = `${nowEnemy.name}으로부터 성공적으로 도망쳤다!!`
       finishBattle ()
     } else {
@@ -401,39 +411,20 @@ $actionBtn.addEventListener('click', () => {
   // $enemyDef.textContent = ''
 
 
-class Weapan {
-  constructor (name, lv, atk, def) {
-    this.name = name;
-    this.lv = lv;
-    this.atk = atk;
-    this.def = def
-  }
-}
-
-
-const nowEquipment = {}
-
-const test = new Weapan ('각목', 1, 2, 0)
-
-copyObject(nowEquipment, test)
-$atk.textContent = `${newCharactor.atk} + ${nowEquipment.atk}`
-newCharactor.atk = newCharactor.atk + nowEquipment.atk
-
-
-
-
-// itemList = [
-//   {name = '포션', value = 5, type = 'posion'},
-//   {name = '돌맹이', value = 2, type = 'throw'},
-// ]
-
-// switch (???.type) { //이 아이템의 타입을 찾는거. 아이템을 클릭했을때,
-// //그 아이템의 타입을 찾아서 효과를 사용하는걸 생각해야해
-//   case 'posion':
-//     newCharactor.hp += value
-//     break
-//   case 'throw' :
-//     nowEnemy.hp -= value
-//     break
-//     ...
+// class Weapan {
+//   constructor (name, lv, atk, def) {
+//     this.name = name;
+//     this.lv = lv;
+//     this.atk = atk;
+//     this.def = def
+//   }
 // }
+
+
+// const nowEquipment = {}
+
+// const test = new Weapan ('각목', 1, 2, 0)
+
+// copyObject(nowEquipment, test)
+// $atk.textContent = `${newCharactor.atk} + ${nowEquipment.atk}`
+// newCharactor.atk = newCharactor.atk + nowEquipment.atk
