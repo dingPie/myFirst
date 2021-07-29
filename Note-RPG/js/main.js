@@ -87,11 +87,50 @@ const $consume = document.getElementsByClassName('consume')
 
 // 임시 아이템 리스트. 맵 형식으로 구현
 let consumeItemList = new Map([ //맵 형식으로 구현
-  ['초소형 포션', new ConsumeItem ('초소형 포션', 'potion', 10, '../img/consume/potion1.png')],
-  ['소형 포션', new ConsumeItem ('소형 포션', 'potion', 25, '../img/consume/potion1.png')],
-  ['짱돌', new ConsumeItem ('짱돌', 'throw', 2, '../img/consume/stone.png')],
-  ['투척용 단검', new ConsumeItem ('투척용 단검', 'throw', 5, '../img/consume/throwing_dagger.png')]  
+  ['초소형 포션', new ConsumeItem ('초소형 포션', 'potion', 10, '../img/consume/potion1.png', 'potion1')],
+  ['소형 포션', new ConsumeItem ('소형 포션', 'potion', 25, '../img/consume/potion1.png', 'potion2')],
+  ['짱돌', new ConsumeItem ('짱돌', 'throw', 2, '../img/consume/stone.png', 'throw1')],
+  ['투척용 단검', new ConsumeItem ('투척용 단검', 'throw', 5, '../img/consume/throwing_dagger.png', 'throw2')]  
 ])
+
+let count = 1
+let $span = ''
+//아이템 획득시
+function getItemComsume (targetItem) {
+  if ($itemBox.childElementCount > 20) {
+    $textBox.textContent = '인벤토리가 가득 찼습니다.'
+    return
+  }
+
+  let itemData = consumeItemList.get(targetItem)
+  let _div = document.createElement("div")
+  _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
+  _div.textContent = targetItem //아이템이름 (name)
+
+  let _span = document.createElement("span")
+  _span.id = itemData.itemCode
+  $span = document.getElementById(itemData.itemCode)
+  //중복값 제거함수
+
+  if (inventroyList.includes(itemData)) { //이미 인벤에 같은 데이터가 있다면
+    count = inventroyList.filter(element => itemData == element).length + 1 
+    $span.textContent = count
+    console.log(inventroyList)
+    //아이템 숫자 늘려주는 함수
+
+  } else {
+    _div.appendChild(_span)
+    $itemBox.append(_div)
+    $consume[$consume.length-1].addEventListener('click', useConsumeItem) //아이템이 추가될때마다, event달아주기
+  }
+  if (itemData.name == targetItem) { //get으로 map에서 검색가능
+    inventroyList.push(itemData) //데이터리스트에 push
+    const itemImg = new Image()//이미지 추가부분
+    itemImg.src = itemData.img
+    _div.append(itemImg)
+  }
+}
+
 
 // let cousumeItemCode = 0
 // let count = 0
@@ -101,27 +140,12 @@ let consumeItemList = new Map([ //맵 형식으로 구현
 //     $textBox.textContent = '인벤토리가 가득 찼습니다.'
 //     return
 //   }
- 
+
 //   let _div = document.createElement("div")
 //   _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
-//   _div.textContent = targetItem //아이템이름 (name)
+//   // _div.textContent = targetItem //아이템이름 (name)
+//   $itemBox.append(_div)
 
-//   let _span = document.createElement("span")
-//   _span.className = cousumeItemCode
-//   let $span = $itemBox.getElementsByClassName(cousumeItemCode-1)
-//   //중복값 제거함수
-//   if (inventroyList.includes(consumeItemList.get(targetItem))) { //이미 인벤에 같은 데이터가 있다면
-//     count += 1
-//     $span[0].textContent = count
-//     console.log(inventroyList)
-//     //아이템 숫자 늘려주는 함수
-//   } else {
-//     _div.appendChild(_span)
-//     $itemBox.append(_div)
-//     count = 1
-//     console.log(cousumeItemCode)
-//     cousumeItemCode += 1
-//   }
 //   if (consumeItemList.get(targetItem).name == targetItem) { //get으로 map에서 검색가능
 //     inventroyList.push(consumeItemList.get(targetItem)) //데이터리스트에 push
 //     $consume[$consume.length-1].addEventListener('click', useConsumeItem) //아이템이 추가될때마다, event달아주기
@@ -130,34 +154,10 @@ let consumeItemList = new Map([ //맵 형식으로 구현
 //     itemImg.src = consumeItemList.get(targetItem).img
 //     _div.append(itemImg)
 //   }
+
+//   let nameText = document.createTextNode(targetItem)
+//   _div.appendChild(nameText)
 // }
-
-
-let cousumeItemCode = 0
-let count = 0
-//아이템 획득시
-function getItemComsume (targetItem) {
-  if ($itemBox.childElementCount > 20) {
-    $textBox.textContent = '인벤토리가 가득 찼습니다.'
-    return
-  }
-  let _div = document.createElement("div")
-  _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
-  // _div.textContent = targetItem //아이템이름 (name)
-  $itemBox.append(_div)
-
-  if (consumeItemList.get(targetItem).name == targetItem) { //get으로 map에서 검색가능
-    inventroyList.push(consumeItemList.get(targetItem)) //데이터리스트에 push
-    $consume[$consume.length-1].addEventListener('click', useConsumeItem) //아이템이 추가될때마다, event달아주기
-    
-    const itemImg = new Image()//이미지 추가부분
-    itemImg.src = consumeItemList.get(targetItem).img
-    _div.append(itemImg)
-  }
-
-  let nameText = document.createTextNode(targetItem)
-  _div.appendChild(nameText)
-}
 
 // fillter나 반복문을 통해 해당 값이 몇 개 있는지 확인 가능.
 //count 로 세어서 화면 span에 표시?
@@ -200,6 +200,7 @@ function effectConsumeItem (targetName) {
 function useConsumeItem () {
   let target = this.textContent // _div가 정의되어있지 않아서 this로 해줌
   let itemData = consumeItemList.get(target)
+  console.log(itemData)
   inventroyList.pop(itemData) //사용한 데이터를 제거,
   this.remove() //화면에서 제거.
 
@@ -216,6 +217,12 @@ if($h3 != undefined){ // $h3가 있으면 (페이지에 정의된 값이 있으�
     return getItemComsume ('초소형 포션')
   })
 }
+
+const $h5 = document.querySelector('h5')
+$h5.addEventListener('click', () => {
+  return getItemComsume ('짱돌')
+})
+
 
 
 //장비아이템

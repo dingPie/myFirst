@@ -41,11 +41,12 @@ export class Monster {
 
 //아이템 형식 클래스
 export class ConsumeItem {
-    constructor(name, type, value, img) {
+    constructor(name, type, value, img, itemCode) {
       this.name = name
       this.value = value
       this.type = type
       this.img = img
+      this.itemCode = itemCode
     }
   }
 
