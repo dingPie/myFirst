@@ -41,10 +41,21 @@ export class Monster {
 
 //아이템 형식 클래스
 export class ConsumeItem {
-    constructor(name, type, value, itemCode) {
+    constructor(name, type, value, img) {
       this.name = name
       this.value = value
       this.type = type
-      this.itemCode = itemCode
+      this.img = img
     }
   }
+
+export class Weapan {
+    constructor (name, lv, atk, def, img) {
+      this.name = name;
+      this.lv = lv;
+      this.atk = atk;
+      this.def = def
+      this.img = img
+    }
+  }
+  

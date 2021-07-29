@@ -1,6 +1,6 @@
 'use strict'
 
-import {Charactor, ConsumeItem, Monster} from './class.js'
+import {Charactor, ConsumeItem, Weapan, Monster} from './class.js'
 
 //선택자 변수
 const $nickName = document.querySelector('.nickname')
@@ -16,26 +16,7 @@ const $xp = document.querySelector('.xp')
 const $textBox = document.querySelector('.text-box')
 
 
-// //캐릭터 클래스 (함수 추가예정)
-// class Charactor {
-//   constructor (name, lv, maxHp, hp, maxSp, sp, atk, def, maxXp, xp) {
-//     this.name = createName;
-//     this.lv = lv;
-//     this.maxHp = maxHp;
-//     this.hp = hp;
-//     this.maxSp = maxSp;
-//     this.sp = sp;
-//     this.atk = atk;
-//     this.def = def;
-//     this.maxXp = maxXp;
-//     this.xp = xp;
-//   }
-//   // equipWeapan (weapan) {
-//   //   this.atk += parseInt(weapan.atk)
-//   //   $atk.textContent = parseInt(.atk) + parseInt(weapan.atk)
-//   // }
-// }
-
+// //캐릭터 클래스 (있던자리)
 
 // 레벨업시 스테이터스 값 증가량.
 function levelUp () {
@@ -74,7 +55,7 @@ function updateStatus () {
 const createName = '파이' //임시지정
 //const createName = prompt('캐릭터 닉네임을 설정해주세요', '');
 // 닉네임과 스텟 초기값 세팅
-const newCharactor = new Charactor (createName, 1, 20, 20, 5, 5, 3, 1, 15, 0)
+const newCharactor = new Charactor (createName, 1, 20, 5, 5, 5, 3, 1, 15, 0)
 
 // const jsonCharactor = JSON.stringify(newCharactor)
 // console.log(jsonCharactor)
@@ -92,76 +73,121 @@ $h2.addEventListener('click', () => {
 })
 
 
+
+
+
+//아이템 함수들.
+const $itemBox = document.querySelector('.all-item-box')
+const inventroyList = []
+
 //소비아이템 함수
 
-// class ConsumeItem { //아이템 형식 클래스
-//   constructor(name, type, value, itemCode) {
-//     this.name = name
-//     this.value = value
-//     this.type = type
-//     this.itemCode = itemCode
+const $consume = document.getElementsByClassName('consume')
+// comsume을 클래스 값으로 배열처럼 만들기에, 겟 클래스로
+
+// 임시 아이템 리스트. 맵 형식으로 구현
+let consumeItemList = new Map([ //맵 형식으로 구현
+  ['초소형 포션', new ConsumeItem ('초소형 포션', 'potion', 10, '../img/consume/potion1.png')],
+  ['소형 포션', new ConsumeItem ('소형 포션', 'potion', 25, '../img/consume/potion1.png')],
+  ['짱돌', new ConsumeItem ('짱돌', 'throw', 2, '../img/consume/stone.png')],
+  ['투척용 단검', new ConsumeItem ('투척용 단검', 'throw', 5, '../img/consume/throwing_dagger.png')]  
+])
+
+// let cousumeItemCode = 0
+// let count = 0
+// //아이템 획득시
+// function getItemComsume (targetItem) {
+//   if ($itemBox.childElementCount > 20) {
+//     $textBox.textContent = '인벤토리가 가득 찼습니다.'
+//     return
+//   }
+ 
+//   let _div = document.createElement("div")
+//   _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
+//   _div.textContent = targetItem //아이템이름 (name)
+
+//   let _span = document.createElement("span")
+//   _span.className = cousumeItemCode
+//   let $span = $itemBox.getElementsByClassName(cousumeItemCode-1)
+//   //중복값 제거함수
+//   if (inventroyList.includes(consumeItemList.get(targetItem))) { //이미 인벤에 같은 데이터가 있다면
+//     count += 1
+//     $span[0].textContent = count
+//     console.log(inventroyList)
+//     //아이템 숫자 늘려주는 함수
+//   } else {
+//     _div.appendChild(_span)
+//     $itemBox.append(_div)
+//     count = 1
+//     console.log(cousumeItemCode)
+//     cousumeItemCode += 1
+//   }
+//   if (consumeItemList.get(targetItem).name == targetItem) { //get으로 map에서 검색가능
+//     inventroyList.push(consumeItemList.get(targetItem)) //데이터리스트에 push
+//     $consume[$consume.length-1].addEventListener('click', useConsumeItem) //아이템이 추가될때마다, event달아주기
+    
+//     const itemImg = new Image()//이미지 추가부분
+//     itemImg.src = consumeItemList.get(targetItem).img
+//     _div.append(itemImg)
 //   }
 // }
 
 
-// let consumeItemList =[
-//   {I: new ConsumeItem ('초소형 포션', 'potion', 10, 'potion1')},
-//   {I: new ConsumeItem ('소형 포션', 'potion', 25, 'potion2')},
-//   {I: new ConsumeItem ('짱돌', 'throw', 2, 'throw1')},
-//   {I: new ConsumeItem ('투척용 단검', 'throw', 5, 'throw2')}  
-// ]
-
-let consumeItemList = new Map([
-  ['초소형 포션', new ConsumeItem ('초소형 포션', 'potion', 10, 'potion1')],
-  ['소형 포션', new ConsumeItem ('소형 포션', 'potion', 25, 'potion2')],
-  ['짱돌', new ConsumeItem ('짱돌', 'throw', 2, 'throw1')],
-  ['투척용 단검', new ConsumeItem ('투척용 단검', 'throw', 5, 'throw2')]  
-])
-
-
-const $itemBox = document.querySelector('.all-item-box')
-const $h3 = document.querySelector('h3');
-const inventroyList = []
-const $consume = document.getElementsByClassName('consume')
-// comsume을 클래스 값으로 배열처럼 만들어서 
-
-
+let cousumeItemCode = 0
+let count = 0
 //아이템 획득시
 function getItemComsume (targetItem) {
-  if ($itemBox.childElementCount < 20) { //중복값을 제거해주려면, set 이용할것
-    let _div = document.createElement("div")
-    _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
-    _div.textContent = targetItem //아이템이름 (name)
-    //이미지도 추가해야됨
-    $itemBox.append(_div)
-
-    let itemData; //인벤토리 데이터에 추가해줄 변수
-      if (consumeItemList.get('초소형포션') == targetItem) {
-        itemData = consumeItemList[i] // itemDate에 찾은 아이템정보를 넣어줌
-      }
-    inventroyList.push(itemData) //데이터리스트에 push
-    console.log(inventroyList) //임시.
-
-    $consume[$consume.length-1].addEventListener('click', useConsumeItem) //아이템이 추가될때마다, event달아주기
-  } else {
+  if ($itemBox.childElementCount > 20) {
     $textBox.textContent = '인벤토리가 가득 찼습니다.'
+    return
   }
+  let _div = document.createElement("div")
+  _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
+  // _div.textContent = targetItem //아이템이름 (name)
+  $itemBox.append(_div)
+
+  if (consumeItemList.get(targetItem).name == targetItem) { //get으로 map에서 검색가능
+    inventroyList.push(consumeItemList.get(targetItem)) //데이터리스트에 push
+    $consume[$consume.length-1].addEventListener('click', useConsumeItem) //아이템이 추가될때마다, event달아주기
+    
+    const itemImg = new Image()//이미지 추가부분
+    itemImg.src = consumeItemList.get(targetItem).img
+    _div.append(itemImg)
+  }
+
+  let nameText = document.createTextNode(targetItem)
+  _div.appendChild(nameText)
 }
 
+// fillter나 반복문을 통해 해당 값이 몇 개 있는지 확인 가능.
+//count 로 세어서 화면 span에 표시?
 
-// 아이템 타입함수
-function effectConsumeItem (targetName) {//같은 이름을 찾을때 까지 반복
+
+
+
+// 아이템 타입판별, 효과 사용
+function effectConsumeItem (targetName) {
     if (consumeItemList.get(targetName).name == targetName) { //사용 아이템의 이름과 아이템 리스트의 이름이 같다면,
-
-      switch (consumeItemList.get(targetName).type) { //스위치문으로 타입 체크
+      let item = consumeItemList.get(targetName)
+      switch (item.type) { //스위치문으로 타입 체크
         case 'potion': //타입이 potion이면 밸류만큼 회복
-        $textBox.textContent = `${consumeItemList.get('초소형 포션').name}을 사용했다. 체력을 ${consumeItemList.get('초소형 포션').value}만큼 회복했다.`
-        //실제로 데이터로 회복시켜주는거 해야됨  
+        
+        if (newCharactor.hp + item.value < newCharactor.maxHp){
+          $hp.textContent = parseInt(newCharactor.hp) + parseInt(item.value)
+          newCharactor.hp += item.value
+          console.log(newCharactor.hp)
+        } else {
+          $hp.textContent = parseInt(newCharactor.maxHp)
+          newCharactor.hp = newCharactor.maxHp
+          console.log(newCharactor.hp)
+        }
+
+        $textBox.textContent = `${item.name}을 사용했다. 체력을 ${item.value}만큼 회복했다.`
         break;
 
         case 'throw': // 타입이 throw면 밸류만큼 데미지
-          $textBox.textContent = `${consumeItemList.get('초소형 포션').name}을 던졌다. 적에게 ${consumeItemList.get('초소형 포션').value}의 피해를 입혔다.`
-          //실제로 데이터로 회복시켜주는거 해야됨  
+        //실제로 데이터로 회복시켜주는거 해야됨  
+          $textBox.textContent = `${item.name}을 던졌다. 적에게 ${item.value}의 피해를 입혔다.`
           break;
       }
     } else {
@@ -169,51 +195,123 @@ function effectConsumeItem (targetName) {//같은 이름을 찾을때 까지 반
     }
 }
 
+
+//아이템 사용시 효과 사용 및 제거 등 총괄
 function useConsumeItem () {
-  let itemData;
-    let target = this.textContent // _div가 정의되어있지 않아서 this로 해줌
-      itemData = consumeItemList.get(target)
-  effectConsumeItem(itemData.name) //효과발동
+  let target = this.textContent // _div가 정의되어있지 않아서 this로 해줌
+  let itemData = consumeItemList.get(target)
   inventroyList.pop(itemData) //사용한 데이터를 제거,
   this.remove() //화면에서 제거.
 
-  console.log(itemData.name)
+  effectConsumeItem(itemData.name) //효과발동
+  // console.log(itemData.name)
   console.log(inventroyList)
-
 }
 
-if($h3!=undefined){
+
+const $h3 = document.querySelector('h3'); //이건 나중에 없앨것
+//매크로. h3이 있을때만 작동
+if($h3 != undefined){ // $h3가 있으면 (페이지에 정의된 값이 있으면)
   $h3.addEventListener('click', () => {
     return getItemComsume ('초소형 포션')
   })
 }
 
-//페이지 나누긴 해야겠다. 함수가 고장나니까 뭘 못하네.
 
-//장비아이템 제작중.
-const $weapan = document.getElementsByClassName('weapan') 
-let nowWeapan = '';
-function getItemWeapan () {
+//장비아이템
+
+const $weapan = document.getElementsByClassName('weapan')
+const $weapanBox = document.querySelector('.weapan-box')
+let nowWeapan = ''
+
+
+let weapanList = new Map([ //맵 형식으로 구현
+  ['각목', new Weapan ('각목', 1, 2, 1, '../img/weapon/stick.png')],
+  ['짧은 단검', new Weapan ('짧은 단검', 1, 3, 0, '../img/weapon/shot_dagger.png')],
+  ['낡은 검', new Weapan ('낡은 검', 3, 5, 0, '../img/weapon/old_sword.png')]
+])
+
+
+//d아이템 획득함수
+function getItemWeapan (targetItem) { // 무기 아이템 획득시
   if ($itemBox.childElementCount < 20) {
-  let _div = document.createElement("div")
-  _div.className = 'weapan item' // 이렇게 하면 클래스 두개추가 가능.
-  _div.textContent ='장비(무기)' //원랜 이미지를 추가해야겠지?
-  $itemBox.append(_div)
+    let _div = document.createElement("div") //화면에 추가해주는 부분
+    _div.className = 'weapan item' // 이렇게 하면 클래스 두개추가 가능.
+    _div.textContent = targetItem
+    //이미지 추가도 필요.
+    $itemBox.append(_div)
+
+    if (weapanList.get(targetItem).name == targetItem) { //get으로 map에서 검색, 같은 품목을 찾아서
+      inventroyList.push(weapanList.get(targetItem))       //데이터리스트에 push
+      $weapan[$weapan.length-1].addEventListener('click', uesWeapanItem)
+
+      const itemImg = new Image() //이미지 추가부분
+      itemImg.src = weapanList.get(targetItem).img
+      _div.append(itemImg)
+    }
+  } else {
+    $textBox.textContent = '인벤토리가 가득찼습니다.'
   }
-  $weapan[$weapan.length-1].addEventListener('click', uesWeapanItem)
-  //아이템을 얻을때마다 새 아이템에 consume class의 이벤트 추가
 }
 
-function uesWeapanItem () {
-  if (nowWeapan == '') { //무기를 장착하고있지 않으면.
-  //  nowWeapan = this... 이 무기를 장비해준다.
-  this.remove() //그리고 삭제
-  } else {
-    // $itemBox.append(nowWeapan) 현재 무기를 인벤에 추가해준다.
-    //  nowWeapan = this... 이 무기를 장비해준다.
+
+const weaponImg = new Image() //이미지 추가부분
+$weapanBox.append(weaponImg) //왜 이렇게 지정해주면 괜찮을까?
+
+
+//무기 바뀌는거 테스트용
+nowWeapan = weapanList.get('짧은 단검')
+newCharactor.atk += nowWeapan.atk
+$atk.textContent = newCharactor.atk
+weaponImg.src = nowWeapan.img
+
+
+//무기 장착효과 적용 함수
+function equiptWeapan (targetName) {
+  if (nowWeapan != '') { //현재 무기가 장착되어 있으면
+    getItemWeapan (nowWeapan.name)
+    newCharactor.atk -= nowWeapan.atk //공격력, 방어력 빼줘서 초기화.
+    newCharactor.def -= nowWeapan.def //
+    nowWeapan = '' //현재 무기 없애줌
+  } 
+  nowWeapan = weapanList.get(targetName)
+  newCharactor.atk += nowWeapan.atk //데이터 및 화면의 공격력 수치 적용.
+  $atk.textContent = newCharactor.atk
+  newCharactor.def += nowWeapan.def
+  $def.textContent = newCharactor.def
+  weaponImg.src = nowWeapan.img
+}
+
+
+// 무기아이템 사용함수
+function uesWeapanItem () { //아이템 사용시
+  let target = this.textContent //해당 아이템 textcontent에서 데이터가져옴
+  let itemData = weapanList.get(target)
+  console.log(itemData)
+
+  if (newCharactor.lv >= itemData.lv) { //내 레벨이 무기 레벨 이상일때만
+    equiptWeapan(target) //아이템 착용함수 실행
+    inventroyList.pop(itemData) //사용한 데이터를 제거
     this.remove() //그리고 삭제
+
+  } else { //레벨이 낮을땐 아무일도 일어나지 않는다.
+    $textBox.textContent = '레벨이 너무 낮습니다.'
   }
 }
+
+
+const $h6 = document.querySelector('h6')
+$h6.addEventListener('click', () => {
+  return getItemWeapan ('각목')
+})
+
+
+// 해야될 것들
+// 소비아이템 중복시, 인벤토리에는 갯수만 늘려주는 형식으로 추가.(셋 함수 적용?)
+// 아이템이름이 아래로 가도록 혹은 보이지 않도록, 호버시 보이게. 이렇게 할경우 이름을 넣는 칸이 따로 필요
+//방어구도 추가해주자
+
+
 
 
 //dropItem으로 함수를 모으고, 거기에 메서드로 추가해야되나?
@@ -221,9 +319,9 @@ function uesWeapanItem () {
 //대신 인수를 받아서, 그 아이템을 가질 수 있게. 이름, 이미지추가, 사용했을때 효과발생.
 
 const forestMonster = [  
-  {M : new Monster ('큰 쥐', 1, 8, 8, 3, 1, 3, '/test.png')},
-  {M : new Monster ('슬라임', 2, 10, 10, 3, 2, 3, '/test1.png')},
-  {M : new Monster ('들개', 4, 15, 15, 5, 2, 5, '/test1.png')}
+  {M : new Monster ('큰 쥐', 1, 8, 8, 3, 1, 3, '../img/monster/big_mouse.png')},
+  {M : new Monster ('슬라임', 2, 10, 10, 3, 2, 3, '../img/monster/slime.png')},
+  {M : new Monster ('들개', 4, 15, 15, 5, 2, 5, '../img/monster/dog.png')}
 ]
 
 
@@ -243,6 +341,15 @@ const $statusDisplay = $enemyBox.querySelector('.status-display')
 const $enemyPictureDisplay = $enemyBox.querySelector('.picture-display')
 
 
+// 객체의 깊은복사를 위한 함수
+function copyObject (object ,obj) {
+  for (let i in obj) {
+    object[i] = obj[i]
+  }
+  return object
+}
+
+
 //적 등장
 let nowEnemy = {} //현재 적
 function showMonster (monsterList) {
@@ -254,14 +361,6 @@ function showMonster (monsterList) {
   $statusDisplay.style.display = 'block'
   $enemyPictureDisplay.style.display = 'block'
   }
-}
-
-// 객체의 깊은복사를 위한 함수
-function copyObject (object ,obj) {
-  for (let i in obj) {
-    object[i] = obj[i]
-  }
-  return object
 }
 
 
@@ -411,20 +510,3 @@ $actionBtn.addEventListener('click', () => {
   // $enemyDef.textContent = ''
 
 
-// class Weapan {
-//   constructor (name, lv, atk, def) {
-//     this.name = name;
-//     this.lv = lv;
-//     this.atk = atk;
-//     this.def = def
-//   }
-// }
-
-
-// const nowEquipment = {}
-
-// const test = new Weapan ('각목', 1, 2, 0)
-
-// copyObject(nowEquipment, test)
-// $atk.textContent = `${newCharactor.atk} + ${nowEquipment.atk}`
-// newCharactor.atk = newCharactor.atk + nowEquipment.atk
