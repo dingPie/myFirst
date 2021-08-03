@@ -1,6 +1,6 @@
 'use strict'
 
-import {Charactor, ConsumeItem, Weapan, Monster} from './class.js'
+import {Character, ConsumeItem, Weapan, Monster} from './class.js'
 
 //선택자 변수
 const $nickName = document.querySelector('.nickname')
@@ -16,22 +16,23 @@ const $xp = document.querySelector('.xp')
 const $textBox = document.querySelector('.text-box')
 
 
+
 // //캐릭터 클래스 (있던자리)
 
 // 레벨업시 스테이터스 값 증가량.
 function levelUp () {
-  if (newCharactor.xp >= newCharactor.lv*15) {
-    newCharactor.xp -= newCharactor.lv*15;
-    newCharactor.lv += 1
-    newCharactor.maxHp += 5
-    newCharactor.hp += 5
-    newCharactor.maxSp += 2
-    newCharactor.sp += 2
-    newCharactor.atk += 1
-    newCharactor.def += 0.5
-    newCharactor.maxp = newCharactor.lv*15;
+  if (newCharacter.xp >= newCharacter.lv*15) {
+    newCharacter.xp -= newCharacter.lv*15;
+    newCharacter.lv += 1
+    newCharacter.maxHp += 5
+    newCharacter.hp += 5
+    newCharacter.maxSp += 2
+    newCharacter.sp += 2
+    newCharacter.atk += 1
+    newCharacter.def += 0.5
+    newCharacter.maxXp = newCharacter.lv*15;
     updateStatus ()
-    $textBox.textContent = `레벨 업! ${newCharactor.name}의 레벨은 ${newCharactor.lv}입니다`
+    $textBox.textContent = `레벨 업! ${newCharacter.name}의 레벨은 ${newCharacter.lv}입니다`
     console.log(`레벨업!`)
   }
 }
@@ -39,26 +40,68 @@ function levelUp () {
 //레벨업, 경험치상승에 따른 스테이터스 업데이트
 function updateStatus () { 
   $nickName.textContent = createName;
-  $level.textContent = newCharactor.lv;
-  $maxHp.textContent = newCharactor.maxHp;
-  $hp.textContent = newCharactor.hp;
-  $maxSp.textContent = newCharactor.maxSp;
-  $sp.textContent = newCharactor.sp;
-  $atk.textContent = newCharactor.atk;
-  $def.textContent = Math.floor(newCharactor.def); //임시. 정수형태로 표현
-  $maxXp.textContent = newCharactor.maxXp;
-  $xp.textContent = newCharactor.xp;
-  $maxXp.textContent = newCharactor.lv *15
+  $level.textContent = newCharacter.lv;
+  $maxHp.textContent = newCharacter.maxHp;
+  $hp.textContent = newCharacter.hp;
+  $maxSp.textContent = newCharacter.maxSp;
+  $sp.textContent = newCharacter.sp;
+  $atk.textContent = newCharacter.atk;
+  $def.textContent = Math.floor(newCharacter.def); //임시. 정수형태로 표현
+  $maxXp.textContent = newCharacter.maxXp;
+  $xp.textContent = newCharacter.xp;
+  $maxXp.textContent = newCharacter.lv *15
 }
 
 
-const createName = '파이' //임시지정
-//const createName = prompt('캐릭터 닉네임을 설정해주세요', '');
-// 닉네임과 스텟 초기값 세팅
-const newCharactor = new Charactor (createName, 1, 20, 5, 5, 5, 3, 1, 15, 0)
 
-// const jsonCharactor = JSON.stringify(newCharactor)
-// console.log(jsonCharactor)
+
+// let createName = ''
+const createName = '파이' //임시지정 
+// if (createName != '') {
+//   createName = prompt('캐릭터 닉네임을 설정해주세요', '');
+// }
+
+// 닉네임과 스텟 초기값 세팅
+let newCharacter = new Character (createName, 1, 20, 15, 5, 5, 3, 1, 15, 0)
+let jsonCharacter = null
+let jsonItemList
+let datacount = 0
+
+
+function saveData() {
+  jsonCharacter = JSON.stringify(newCharacter)
+  localStorage.setItem('json', jsonCharacter)
+  console.log(jsonCharacter) 
+
+  jsonItemList = JSON.stringify(inventroyList)
+  console.log(inventroyList)
+  localStorage.setItem('jsonItemList', jsonItemList)  
+}
+
+
+function loadData() {
+  newCharacter = JSON.parse(localStorage.getItem('json'))
+  updateStatus ()
+  
+  let inventoryItems = JSON.parse(localStorage.getItem('jsonItemList'))
+  console.log(inventoryItems)
+  for (let i in inventoryItems) {
+    inventroyList.push(inventoryItems[i])
+    getItemConsume(inventoryItems[i])
+    //로드 부분에서 겟 아이템 제대로 작동하는지 확인
+  }
+  console.log(inventroyList)
+}
+//세이브는 되는데...
+
+// loadData()
+// 어떻게 조건을 달아야 할까...
+
+const $h4 = document.querySelector('h4')
+$h4.addEventListener('click', saveData)
+// window.setInterval(loadData, 1000)
+
+
 
 
 updateStatus(); //시작시 한번 업데이트 하고 시작
@@ -66,7 +109,7 @@ $textBox.textContent = `${createName} 이(가) 생성되었습니다`
 // 레벨업 매크로. 매크로시 레벨업확인 (함수) 및 스테이터스 업데이트가 이루어짐
 const $h2 = document.querySelector('h2')
 $h2.addEventListener('click', () => {
-  newCharactor.xp = newCharactor.xp + 10
+  newCharacter.xp = newCharacter.xp + 10
   console.log (`경험치상승`)
   levelUp()
   updateStatus ()
@@ -83,7 +126,7 @@ const inventroyList = []
 //소비아이템 함수
 
 const $consume = document.getElementsByClassName('consume')
-// comsume을 클래스 값으로 배열처럼 만들기에, 겟 클래스로
+// Consume을 클래스 값으로 배열처럼 만들기에, 겟 클래스로
 
 // 임시 아이템 리스트. 맵 형식으로 구현
 let consumeItemList = new Map([ //맵 형식으로 구현
@@ -94,75 +137,46 @@ let consumeItemList = new Map([ //맵 형식으로 구현
 ])
 
 let count = 1
-let $span = ''
+let $span = '' //밖에 적용되어 있어야 각각 아이템에 추가가 가능하다
+
 //아이템 획득시
-function getItemComsume (targetItem) {
+function getItemConsume (targetItem) {
   if ($itemBox.childElementCount > 20) {
     $textBox.textContent = '인벤토리가 가득 찼습니다.'
     return
   }
-
-  let itemData = consumeItemList.get(targetItem)
-  let _div = document.createElement("div")
-  _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
-  _div.textContent = targetItem //아이템이름 (name)
-
-  let _span = document.createElement("span")
-  _span.id = itemData.itemCode
-  $span = document.getElementById(itemData.itemCode)
-  //중복값 제거함수
-
-  if (inventroyList.includes(itemData)) { //이미 인벤에 같은 데이터가 있다면
-    count = inventroyList.filter(element => itemData == element).length + 1 
-    $span.textContent = count
-    console.log(inventroyList)
-    //아이템 숫자 늘려주는 함수
-
-  } else {
-    _div.appendChild(_span)
-    $itemBox.append(_div)
-    $consume[$consume.length-1].addEventListener('click', useConsumeItem) //아이템이 추가될때마다, event달아주기
-  }
-  if (itemData.name == targetItem) { //get으로 map에서 검색가능
-    inventroyList.push(itemData) //데이터리스트에 push
-    const itemImg = new Image()//이미지 추가부분
+    let itemData = consumeItemList.get(targetItem)
+    let _div = document.createElement("div")
+    _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
+    //이미지 추가부분
+    const itemImg = new Image()
     itemImg.src = itemData.img
     _div.append(itemImg)
+    //텍스트 추가부분
+    let nameText = document.createTextNode(targetItem)
+    _div.appendChild(nameText)
+    //스팬 추가부분
+    let _span = document.createElement("span") 
+    _span.id = itemData.itemCode //스팬의 아이디는 data의 itemcode로 지정해줌
+    $span = document.getElementById(itemData.itemCode) // 위에 만들어준 아이템 코드를 반환
+
+   // 똑같은 아이템이 있을때, 겹쳐줌
+  if (inventroyList.includes(itemData)) { //이미 인벤에 같은 데이터가 있다면
+    let count = inventroyList.filter(element => itemData == element).length + 1  //데이터를 아래 넣으니, 위에에선 1을 추가 한 값으로 해줌
+    $span.textContent = count // 해당 itemcode의 반환 값에 텍스트 콘텐츠를 추가
+    console.log(inventroyList)
+  } else { // 처음 아이템이 들어온다면.
+    _div.appendChild(_span) // 만들어진 _div에 만든 _span추가
+    $itemBox.append(_div) // 처음에만 인벤토리에 추가해줌 
+    $consume[$consume.length-1].addEventListener('click', () => {
+      return useConsumeItem(_div, itemData)
+    }) //새로 추가된 함수에 소비아이템 사용함수 달아줌. 인자로 받는 값들은 여기서 만들어진 _div와 데이터로, 추후 아이템 사용시 사용됨
+  }
+
+  if (itemData.name == targetItem) { //get으로 map에서 검색가능
+    inventroyList.push(itemData) //데이터리스트에 push
   }
 }
-
-
-// let cousumeItemCode = 0
-// let count = 0
-// //아이템 획득시
-// function getItemComsume (targetItem) {
-//   if ($itemBox.childElementCount > 20) {
-//     $textBox.textContent = '인벤토리가 가득 찼습니다.'
-//     return
-//   }
-
-//   let _div = document.createElement("div")
-//   _div.className = 'consume item' // 이렇게 하면 클래스 두개추가 가능.
-//   // _div.textContent = targetItem //아이템이름 (name)
-//   $itemBox.append(_div)
-
-//   if (consumeItemList.get(targetItem).name == targetItem) { //get으로 map에서 검색가능
-//     inventroyList.push(consumeItemList.get(targetItem)) //데이터리스트에 push
-//     $consume[$consume.length-1].addEventListener('click', useConsumeItem) //아이템이 추가될때마다, event달아주기
-    
-//     const itemImg = new Image()//이미지 추가부분
-//     itemImg.src = consumeItemList.get(targetItem).img
-//     _div.append(itemImg)
-//   }
-
-//   let nameText = document.createTextNode(targetItem)
-//   _div.appendChild(nameText)
-// }
-
-// fillter나 반복문을 통해 해당 값이 몇 개 있는지 확인 가능.
-//count 로 세어서 화면 span에 표시?
-
-
 
 
 // 아이템 타입판별, 효과 사용
@@ -172,14 +186,14 @@ function effectConsumeItem (targetName) {
       switch (item.type) { //스위치문으로 타입 체크
         case 'potion': //타입이 potion이면 밸류만큼 회복
         
-        if (newCharactor.hp + item.value < newCharactor.maxHp){
-          $hp.textContent = parseInt(newCharactor.hp) + parseInt(item.value)
-          newCharactor.hp += item.value
-          console.log(newCharactor.hp)
+        if (newCharacter.hp + item.value < newCharacter.maxHp){
+          $hp.textContent = parseInt(newCharacter.hp) + parseInt(item.value)
+          newCharacter.hp += item.value
+          console.log(newCharacter.hp)
         } else {
-          $hp.textContent = parseInt(newCharactor.maxHp)
-          newCharactor.hp = newCharactor.maxHp
-          console.log(newCharactor.hp)
+          $hp.textContent = parseInt(newCharacter.maxHp)
+          newCharacter.hp = newCharacter.maxHp
+          console.log(newCharacter.hp)
         }
 
         $textBox.textContent = `${item.name}을 사용했다. 체력을 ${item.value}만큼 회복했다.`
@@ -197,13 +211,18 @@ function effectConsumeItem (targetName) {
 
 
 //아이템 사용시 효과 사용 및 제거 등 총괄
-function useConsumeItem () {
-  let target = this.textContent // _div가 정의되어있지 않아서 this로 해줌
-  let itemData = consumeItemList.get(target)
-  console.log(itemData)
-  inventroyList.pop(itemData) //사용한 데이터를 제거,
-  this.remove() //화면에서 제거.
-
+function useConsumeItem (div, itemData) {
+  // let target = this.textContent // _div가 정의되어있지 않아서 this로 해줌
+  // let itemData = consumeItemList.get(target)
+  let $span = div.querySelector("#"+itemData.itemCode)
+  inventroyList.splice(inventroyList.indexOf(itemData), 1) //사용한 데이터를 제거,
+  count = inventroyList.filter(element => itemData == element).length
+  if (count > 0 ) {
+    $span.textContent = count
+  }
+   else {
+     div.remove() //화면에서 제거.
+  }
   effectConsumeItem(itemData.name) //효과발동
   // console.log(itemData.name)
   console.log(inventroyList)
@@ -214,14 +233,16 @@ const $h3 = document.querySelector('h3'); //이건 나중에 없앨것
 //매크로. h3이 있을때만 작동
 if($h3 != undefined){ // $h3가 있으면 (페이지에 정의된 값이 있으면)
   $h3.addEventListener('click', () => {
-    return getItemComsume ('초소형 포션')
+    return getItemConsume ('초소형 포션')
   })
 }
 
 const $h5 = document.querySelector('h5')
+if ($h5 != undefined) {
 $h5.addEventListener('click', () => {
-  return getItemComsume ('짱돌')
+  return getItemConsume ('짱돌')
 })
+}
 
 
 
@@ -241,24 +262,26 @@ let weapanList = new Map([ //맵 형식으로 구현
 
 //d아이템 획득함수
 function getItemWeapan (targetItem) { // 무기 아이템 획득시
-  if ($itemBox.childElementCount < 20) {
-    let _div = document.createElement("div") //화면에 추가해주는 부분
-    _div.className = 'weapan item' // 이렇게 하면 클래스 두개추가 가능.
-    _div.textContent = targetItem
-    //이미지 추가도 필요.
-    $itemBox.append(_div)
-
-    if (weapanList.get(targetItem).name == targetItem) { //get으로 map에서 검색, 같은 품목을 찾아서
-      inventroyList.push(weapanList.get(targetItem))       //데이터리스트에 push
-      $weapan[$weapan.length-1].addEventListener('click', uesWeapanItem)
-
-      const itemImg = new Image() //이미지 추가부분
-      itemImg.src = weapanList.get(targetItem).img
-      _div.append(itemImg)
-    }
-  } else {
-    $textBox.textContent = '인벤토리가 가득찼습니다.'
+  if ($itemBox.childElementCount > 20) {
+    $textBox.textContent = '인벤토리가 가득 찼습니다.'
+    return
   }
+  let itemData = weapanList.get(targetItem)
+  let _div = document.createElement("div")
+  _div.className = 'weapan item'
+
+  if (itemData.name == targetItem) { //get으로 map에서 검색, 같은 품목을 찾아서
+    inventroyList.push(itemData)   //데이터리스트에 push
+     //이미지 추가부분
+    const itemImg = new Image()
+    itemImg.src = itemData.img
+    _div.append(itemImg)
+    //텍스트 추가부분
+    let nameText = document.createTextNode(targetItem)
+    _div.appendChild(nameText)
+  }
+  $itemBox.append(_div) //아이템창에 추가
+  $weapan[$weapan.length-1].addEventListener('click', uesWeapanItem)
 }
 
 
@@ -268,8 +291,8 @@ $weapanBox.append(weaponImg) //왜 이렇게 지정해주면 괜찮을까?
 
 //무기 바뀌는거 테스트용
 nowWeapan = weapanList.get('짧은 단검')
-newCharactor.atk += nowWeapan.atk
-$atk.textContent = newCharactor.atk
+newCharacter.atk += nowWeapan.atk
+$atk.textContent = newCharacter.atk
 weaponImg.src = nowWeapan.img
 
 
@@ -277,15 +300,15 @@ weaponImg.src = nowWeapan.img
 function equiptWeapan (targetName) {
   if (nowWeapan != '') { //현재 무기가 장착되어 있으면
     getItemWeapan (nowWeapan.name)
-    newCharactor.atk -= nowWeapan.atk //공격력, 방어력 빼줘서 초기화.
-    newCharactor.def -= nowWeapan.def //
+    newCharacter.atk -= nowWeapan.atk //공격력, 방어력 빼줘서 초기화.
+    newCharacter.def -= nowWeapan.def //
     nowWeapan = '' //현재 무기 없애줌
   } 
   nowWeapan = weapanList.get(targetName)
-  newCharactor.atk += nowWeapan.atk //데이터 및 화면의 공격력 수치 적용.
-  $atk.textContent = newCharactor.atk
-  newCharactor.def += nowWeapan.def
-  $def.textContent = newCharactor.def
+  newCharacter.atk += nowWeapan.atk //데이터 및 화면의 공격력 수치 적용.
+  $atk.textContent = newCharacter.atk
+  newCharacter.def += nowWeapan.def
+  $def.textContent = newCharacter.def
   weaponImg.src = nowWeapan.img
 }
 
@@ -296,7 +319,7 @@ function uesWeapanItem () { //아이템 사용시
   let itemData = weapanList.get(target)
   console.log(itemData)
 
-  if (newCharactor.lv >= itemData.lv) { //내 레벨이 무기 레벨 이상일때만
+  if (newCharacter.lv >= itemData.lv) { //내 레벨이 무기 레벨 이상일때만
     equiptWeapan(target) //아이템 착용함수 실행
     inventroyList.pop(itemData) //사용한 데이터를 제거
     this.remove() //그리고 삭제
@@ -314,11 +337,8 @@ $h6.addEventListener('click', () => {
 
 
 // 해야될 것들
-// 소비아이템 중복시, 인벤토리에는 갯수만 늘려주는 형식으로 추가.(셋 함수 적용?)
 // 아이템이름이 아래로 가도록 혹은 보이지 않도록, 호버시 보이게. 이렇게 할경우 이름을 넣는 칸이 따로 필요
 //방어구도 추가해주자
-
-
 
 
 //dropItem으로 함수를 모으고, 거기에 메서드로 추가해야되나?
@@ -343,7 +363,7 @@ const $enemyHp = $enemyBox.querySelector('.hp')
 const $enemyAtk = $enemyBox.querySelector('.atk')
 const $enemyDef = $enemyBox.querySelector('.def')
 const $enemyXp = $enemyBox.querySelector('.xp')
-const $charactorPicture = document.querySelector('.picture-box')
+const $CharacterPicture = document.querySelector('.picture-box')
 const $statusDisplay = $enemyBox.querySelector('.status-display')
 const $enemyPictureDisplay = $enemyBox.querySelector('.picture-display')
 
@@ -423,7 +443,7 @@ function enemyAttack (enemy, character) {
   $textBox.textContent
   = ` ${damage}의 피해를 입었다!`
   myTurn = true
-  charactorDaed ()
+  CharacterDaed ()
 }
 
 
@@ -432,7 +452,7 @@ function checkDead$EnemyAttack (character, enemy) {
 
   if (enemy.hp <= 0) { //적의 체력이 0 이하라면 텍스트컨텐츠를 없애줌
     $textBox.textContent = `${nowEnemy.name}를 처치했다 ! ${nowEnemy.xp}의 경험치 획득!`
-    newCharactor.xp += parseInt(nowEnemy.xp)
+    newCharacter.xp += parseInt(nowEnemy.xp)
     $xp.textContent = parseInt($xp.textContent) + parseInt(nowEnemy.xp) //정수형으로 해줘야됨.
     levelUp () // 몹이 죽었을 때 레벨업 체크까지.
     finishBattle ()
@@ -447,11 +467,11 @@ function checkDead$EnemyAttack (character, enemy) {
 
 // 내 캐릭터 죽었는지 체크
 const $deadBox = document.querySelector('.dead-box')
-function charactorDaed () {
-  if (newCharactor.hp <= 0) {
-    newCharactor.maxHp -= 5
+function CharacterDaed () {
+  if (newCharacter.hp <= 0) {
+    newCharacter.maxHp -= 5
     $maxHp.textContent -= 5
-    newCharactor.xp = 0
+    newCharacter.xp = 0
     $xp.textContent = 0
     $textBox.textContent = `당신은 ${nowEnemy.name}에게 죽었습니다...`
     myTurn = false;
@@ -468,8 +488,8 @@ function finishBattle () { //전투가 끝났을 때
 }
 
 //도망함수
-function runBattle (enemy, charactor) {
-  if (charactor.lv > enemy.lv) { //내 레벨이 적보다 높으면 100% 도망
+function runBattle (enemy, Character) {
+  if (Character.lv > enemy.lv) { //내 레벨이 적보다 높으면 100% 도망
     $textBox.textContent = `${nowEnemy.name}으로부터 성공적으로 도망쳤다!!`
     finishBattle ()
     console.log(`레벨이 높아서 100%도망`)
@@ -484,7 +504,7 @@ function runBattle (enemy, charactor) {
     } else {
       $textBox.textContent = `도망 실패!`
       setTimeout(() => { //도망 실패시, 1초후 적 공격 실행
-        enemyAttack (enemy, charactor)
+        enemyAttack (enemy, Character)
     }, 1000)
     }
   }
@@ -497,23 +517,13 @@ const $actionBtn = document.querySelector('.action-btn')
 
 //함수 이벤트 실행
 $attackBtn.addEventListener('click', () => {
-  return attack (newCharactor, nowEnemy)
+  return attack (newCharacter, nowEnemy)
 })
 $runBtn.addEventListener('click', () => {
-  return runBattle (nowEnemy, newCharactor)
+  return runBattle (nowEnemy, newCharacter)
 })
 $actionBtn.addEventListener('click', () => {
   return showMonster(forestMonster)
 })
-
-
-//임시
-
-// 도망 or 사망시 텍스트 컨텐츠 변경
-  // $enemyName.textContent = ''
-  // $enemyMaxHp.textContent = ''
-  // $enemyHp.textContent = ''
-  // $enemyAtk.textContent = ''
-  // $enemyDef.textContent = ''
 
 
