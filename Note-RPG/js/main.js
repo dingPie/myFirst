@@ -18,7 +18,6 @@ const $textBox = document.querySelector('.text-box')
 
 
 // //캐릭터 클래스 (있던자리)
-
 // 레벨업시 스테이터스 값 증가량.
 function levelUp () {
   if (newCharacter.xp >= newCharacter.lv*15) {
@@ -56,52 +55,62 @@ function updateStatus () {
 
 
 // let createName = ''
-const createName = '파이' //임시지정 
-// if (createName != '') {
-//   createName = prompt('캐릭터 닉네임을 설정해주세요', '');
-// }
+let createName; 
+if (localStorage.getItem('json') == null) { //데이터 파일이 없다면( get으로 가져오는 값이 비었다면)
+  createName = prompt('캐릭터 이름을 입력하세요', '') //이름입력 (캐릭터 생성)
+} else { // (데이터가 있다면,  JSON에서 parse해온 값에 name 값을 가져와서 createName에 넣어줌)
+  createName = JSON.parse(localStorage.getItem('json')).name
+}
+
 
 // 닉네임과 스텟 초기값 세팅
 let newCharacter = new Character (createName, 1, 20, 15, 5, 5, 3, 1, 15, 0)
-let jsonCharacter = null
+let jsonCharacter;
 let jsonItemList
-let datacount = 0
 
 
-function saveData() {
-  jsonCharacter = JSON.stringify(newCharacter)
-  localStorage.setItem('json', jsonCharacter)
+function saveData() { //데이터 저장함수. 추후 액션마다 넣어줄것
+  jsonCharacter = JSON.stringify(newCharacter) //캐릭터를 스트링화
+  localStorage.setItem('json', jsonCharacter) //스트링화 된걸 localstorage에 저장
   console.log(jsonCharacter) 
 
-  jsonItemList = JSON.stringify(inventroyList)
-  console.log(inventroyList)
-  localStorage.setItem('jsonItemList', jsonItemList)  
+  jsonItemList = JSON.stringify(inventoryList)
+  console.log('저장용',jsonItemList)
+  localStorage.setItem('jsonItemList', jsonItemList)
 }
 
 
 function loadData() {
   newCharacter = JSON.parse(localStorage.getItem('json'))
   updateStatus ()
-  
+
   let inventoryItems = JSON.parse(localStorage.getItem('jsonItemList'))
   console.log(inventoryItems)
+
+
+
   for (let i in inventoryItems) {
-    inventroyList.push(inventoryItems[i])
-    getItemConsume(inventoryItems[i])
+    if (consumeItemList.get(inventoryItems[i].name)) {
+      getItemConsume(inventoryItems[i].name)
+    } else {
+      getItemWeapan(inventoryItems[i].name)
+    }
     //로드 부분에서 겟 아이템 제대로 작동하는지 확인
   }
-  console.log(inventroyList)
+  console.log('불러오기용',inventoryList)
 }
+
+
+// console.log(consumeItemList.get('짱돌') instanceof ConsumeItem)
+// prototype 형태를 검사하는 instanceof 구문. 좀 더 공부할것
 //세이브는 되는데...
 
-// loadData()
+
 // 어떻게 조건을 달아야 할까...
 
 const $h4 = document.querySelector('h4')
 $h4.addEventListener('click', saveData)
 // window.setInterval(loadData, 1000)
-
-
 
 
 updateStatus(); //시작시 한번 업데이트 하고 시작
@@ -116,12 +125,9 @@ $h2.addEventListener('click', () => {
 })
 
 
-
-
-
 //아이템 함수들.
 const $itemBox = document.querySelector('.all-item-box')
-const inventroyList = []
+const inventoryList = []
 
 //소비아이템 함수
 
@@ -161,10 +167,10 @@ function getItemConsume (targetItem) {
     $span = document.getElementById(itemData.itemCode) // 위에 만들어준 아이템 코드를 반환
 
    // 똑같은 아이템이 있을때, 겹쳐줌
-  if (inventroyList.includes(itemData)) { //이미 인벤에 같은 데이터가 있다면
-    let count = inventroyList.filter(element => itemData == element).length + 1  //데이터를 아래 넣으니, 위에에선 1을 추가 한 값으로 해줌
+  if (inventoryList.includes(itemData)) { //이미 인벤에 같은 데이터가 있다면
+    let count = inventoryList.filter(element => itemData == element).length + 1  //데이터를 아래 넣으니, 위에에선 1을 추가 한 값으로 해줌
     $span.textContent = count // 해당 itemcode의 반환 값에 텍스트 콘텐츠를 추가
-    console.log(inventroyList)
+    console.log(inventoryList)
   } else { // 처음 아이템이 들어온다면.
     _div.appendChild(_span) // 만들어진 _div에 만든 _span추가
     $itemBox.append(_div) // 처음에만 인벤토리에 추가해줌 
@@ -174,7 +180,7 @@ function getItemConsume (targetItem) {
   }
 
   if (itemData.name == targetItem) { //get으로 map에서 검색가능
-    inventroyList.push(itemData) //데이터리스트에 push
+    inventoryList.push(itemData) //데이터리스트에 push
   }
 }
 
@@ -215,8 +221,8 @@ function useConsumeItem (div, itemData) {
   // let target = this.textContent // _div가 정의되어있지 않아서 this로 해줌
   // let itemData = consumeItemList.get(target)
   let $span = div.querySelector("#"+itemData.itemCode)
-  inventroyList.splice(inventroyList.indexOf(itemData), 1) //사용한 데이터를 제거,
-  count = inventroyList.filter(element => itemData == element).length
+  inventoryList.splice(inventoryList.indexOf(itemData), 1) //사용한 데이터를 제거,
+  count = inventoryList.filter(element => itemData == element).length
   if (count > 0 ) {
     $span.textContent = count
   }
@@ -225,7 +231,7 @@ function useConsumeItem (div, itemData) {
   }
   effectConsumeItem(itemData.name) //효과발동
   // console.log(itemData.name)
-  console.log(inventroyList)
+  console.log(inventoryList)
 }
 
 
@@ -269,9 +275,9 @@ function getItemWeapan (targetItem) { // 무기 아이템 획득시
   let itemData = weapanList.get(targetItem)
   let _div = document.createElement("div")
   _div.className = 'weapan item'
-
+  console.log(itemData.name, targetItem)
   if (itemData.name == targetItem) { //get으로 map에서 검색, 같은 품목을 찾아서
-    inventroyList.push(itemData)   //데이터리스트에 push
+    inventoryList.push(itemData)   //데이터리스트에 push
      //이미지 추가부분
     const itemImg = new Image()
     itemImg.src = itemData.img
@@ -321,7 +327,7 @@ function uesWeapanItem () { //아이템 사용시
 
   if (newCharacter.lv >= itemData.lv) { //내 레벨이 무기 레벨 이상일때만
     equiptWeapan(target) //아이템 착용함수 실행
-    inventroyList.pop(itemData) //사용한 데이터를 제거
+    inventoryList.pop(itemData) //사용한 데이터를 제거
     this.remove() //그리고 삭제
 
   } else { //레벨이 낮을땐 아무일도 일어나지 않는다.
@@ -334,6 +340,18 @@ const $h6 = document.querySelector('h6')
 $h6.addEventListener('click', () => {
   return getItemWeapan ('각목')
 })
+
+
+
+
+if (localStorage.getItem('json') != null) {
+  loadData()
+}
+
+
+
+
+
 
 
 // 해야될 것들

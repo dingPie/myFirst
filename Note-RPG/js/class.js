@@ -1,12 +1,12 @@
 'use strict'
 
 
-const createName = '파이' //임시지정
+// const createName = '파이' //임시지정
 
 //캐릭터 클래스 (함수 추가예정)
 export class Character {
     constructor (name, lv, maxHp, hp, maxSp, sp, atk, def, maxXp, xp) {
-      this.name = createName;
+      this.name = name;
       this.lv = lv;
       this.maxHp = maxHp;
       this.hp = hp;
