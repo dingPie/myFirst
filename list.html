@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+	<meta charset="utf-8">
+	<title>untactWeb | Map</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/list_style.css' %}">
+	<script src="https://kit.fontawesome.com/ace68e7c88.js" crossorigin="anonymous"></script>
+	<script defer src="{% static 'js/list.js' %}"></script>
+</head>
+<body>
+<div class="box">
+	<div class="logo_bar">로고</div>
+	<div class="nav_bar">
+		<span class="select_name">카테고리별</span>
+		<select name="category" class="select_category">
+			<option value="전체">전체</option>
+			<option value="공원" class="">공원</option>
+			<option value="역사" class="">역사</option>
+			<option value="자연" class="">자연</option>
+			<option value="체험" class="">체험</option>
+			<option value="기타" class="">기타</option>
+		</select>
+		<span class="select_name">지역별</span>
+		<select name="category" class="select_area1">
+			<option value="전체">전체</option>
+			<option value="1">서울/경기</option>
+			<option value="2">부산/울산/대구/경상도</option>
+			<option value="3">대전/세종/충청도</option>
+			<option value="4">광주/전라도</option>
+			<option value="5">강원도</option>
+			<option value="6">제주도</option>
+		</select>
+		<input type="button" class="sort_btn" value="정렬하기">
+		<a href="#" class="un_down">up</i></a>
+		<a href="#" class="un_down">down</a>
+	</div>
+	<div class="main_box"></div>
+
+	<a href="/map/"><div class="toggle-btn"><i class="fas fa-map-marked"></i></div></a>
+
+	<div id="dataTitle" style='display: none;'>
+		{% for location in location_list %}
+			{{location.title}},
+		{% endfor %}
+	</div>
+
+	<div id="dataFirstImage" style='display: none;'>
+		{% for location in location_list %}
+			{{location.image}},
+		{% endfor %}
+	</div>
+
+	<div id="dataAddr" style='display: none;'>
+		{% for location in location_list %}
+			{{location.address}},
+		{% endfor %}
+	</div>
+
+	<div id="dataMapX" style='display: none;'>
+		{% for location in location_list %}
+			{{location.xpoint}},
+		{% endfor %}
+	</div>
+
+	<div id="dataMapY" style='display: none;'>
+		{% for location in location_list %}
+			{{location.ypoint}},
+		{% endfor %}
+	</div>
+
+	<div id="dataDetail" style='display: none;'>
+		{% for location in location_list %}
+			{{location.id}},
+		{% endfor %}
+	</div>
+
+	<div id="dataCategory" style='display: none;'>
+		{% for location in location_list %}
+			{{location.category}},
+		{% endfor %}
+	</div>
+
+	<div id="dataArea1" style='display: none;'>
+		{% for location in location_list %}
+			{{location.area1}},
+		{% endfor %}
+	</div>
+
+
+	<!-- <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b5c9ec7736fd54b19c3c8d185fc9fe2e"></script>
+	<script defer src="js/main_v4.js"></script> -->
+</div>
+</body>
+</html>
