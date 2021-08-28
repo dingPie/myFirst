@@ -7,8 +7,8 @@ const $dataMapX = document.getElementById('dataMapX').innerText.split(',')
 const $dataMapY = document.getElementById('dataMapY').innerText.split(',')
 const $dataDetail = document.getElementById('dataDetail').innerText.split(',')
 const $dataCategory = document.getElementById('dataCategory').innerText.split(',')
-const $dataArea1 = document.querySelector('#dataArea1').innerText.split(',')
 
+const $dataArea1 = document.querySelector('#dataArea1')
 
 // 리스트용 탬플릿, positions에 추가해서 메인페이지에 추가할 에정
 let positions = []
@@ -16,7 +16,7 @@ for (let i = 0; i < $dataTitle.length; i++) {
     let value =
         {
         content:
-        `<a href="/map/detail?id=${$dataDetail[i]}">` +
+        `<a href="/project/detail?id=${$dataDetail[i]}">` +
          `   <div class="list_box">` +
         `       <div class="img_box">` +
         `           <img src = ${$dataFirstImage[i]}>` +
@@ -25,13 +25,12 @@ for (let i = 0; i < $dataTitle.length; i++) {
         `           <div class="title">${$dataTitle[i]}</div>` +
         `           <div class="addr_box">${$dataAddr[i]}</div>` +
         `       </div>`+
-        `       <div class="category" id="${$dataCategory[i].trim()}">${$dataCategory[i]}</div>` +
+        `       <div class="category">${$dataCategory[i]}</div>` +
         `       <div class='area1' style='display: none;'>${$dataArea1[i]}</div>` +
         `   </div>` +
         `</a>`,
         }
     positions.push(value)
-    console.log(`${$dataCategory[i]}`)
 }
 
 
@@ -43,9 +42,8 @@ for (let i = 0; i < positions.length -1; i++) {
     _div.innerHTML = positions[i].content
     // console.log(positions[i].content)
     $mainBox.appendChild(_div)
-//    console.log(positions[i])
+   // console.log(positions[i])
 }
-
 
 const $selectCategory = document.querySelector('.select_category') //카테고리 고르는 select
 const $listBox = document.getElementsByClassName('list_box') //list 탬플릿
@@ -59,11 +57,11 @@ const $area1 = document.getElementsByClassName('area1') // list 탬플릿 내에
 
 function sortCategory () {
     let catValue = $selectCategory.value //카테고리 고른 값을 가져옴
+    // console.log(catValue)
     //기본적으로 다시 display를 반복문으로 표시해줌
     for (let i = 0; i < $mainBox.childElementCount; i++) {
-        console.log($listBox[i])
-         $listBox[i].style.display = "flex";
-    //    console.log($mainBox.childElementCount)
+         $listBox[i].style.display = "flex"
+       // console.log($mainBox.childElementCount)
     }
     if (catValue == '전체') {
         sortArea(catValue)
