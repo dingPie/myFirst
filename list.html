@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="{% static 'css/list_style.css' %}">
 	<script src="https://kit.fontawesome.com/ace68e7c88.js" crossorigin="anonymous"></script>
 	<script defer src="{% static 'js/list.js' %}"></script>
+<!--	<script defer src="{% static 'js/sort.js' %}"></script>-->
+	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
+
 <div class="box">
 	<div class="logo_bar">로고</div>
 	<div class="nav_bar">
@@ -33,12 +36,15 @@
 			<option value="6">제주도</option>
 		</select>
 		<input type="button" class="sort_btn" value="정렬하기">
-		<a href="#" class="un_down">up</i></a>
-		<a href="#" class="un_down">down</a>
+		<!--      <div class="up_down_box">-->
+		<!--         <div class="sort_btn un_down">1</div>-->
+		<!--         <div class="sort_btn un_down">2</div>-->
+		<!--      </div>-->
 	</div>
+
 	<div class="main_box"></div>
 
-	<a href="/map/"><div class="toggle-btn"><i class="fas fa-map-marked"></i></div></a>
+	<a href="{% url 'project:map' %}"><div class="toggle-btn"><i class="fas fa-map-marked"></i></div></a>
 
 	<div id="dataTitle" style='display: none;'>
 		{% for location in location_list %}
@@ -88,9 +94,9 @@
 		{% endfor %}
 	</div>
 
-
 	<!-- <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b5c9ec7736fd54b19c3c8d185fc9fe2e"></script>
 	<script defer src="js/main_v4.js"></script> -->
 </div>
 </body>
 </html>
+
